@@ -1,27 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { NotesProvider, NotesContext } from './contexts/NotesContext';
+import React, { useState } from 'react';
+import { NotesProvider } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
 import NoteModal from './components/NoteModal';
-
-// Renombrar la interfaz para evitar conflictos
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-}
-
-interface NoteCollectionInterface {
-  id: string;
-  notes: Note[];
-}
 
 const App: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
-  
-  const { state, dispatch } = useContext(NotesContext); // Aquí obtenemos el estado y el dispatch
 
-  const handleAddNote = (note: Note) => {
+  const handleAddNote = (note: { id: string; title: string; content: string }) => {
     if (activeCollectionId) {
       // Aquí se despacha la acción para agregar la nota a la colección activa
       dispatch({
@@ -43,17 +29,15 @@ const App: React.FC = () => {
 
         {/* Mostrar colecciones de notas */}
         <div>
-          {state.collections.map((collection: NoteCollectionInterface) => (
+          {state.collections.map(collection => (
             <NoteCollection
-            key={collection.id}
-            collection={collection}
-            onNoteClick={(noteId) => {
-              // Aquí podrías abrir un modal para ver la nota
-              console.log("Nota ID:", noteId); // Ejemplo de uso
-            }}
-            onCollectionClick={() => setActiveCollectionId(collection.id)}
-          />
-          
+              key={collection.id}
+              collection={collection}
+              onNoteClick={(noteId) => {
+                // Aquí se podría abrir un modal para ver la nota
+              }}
+              onCollectionClick={() => setActiveCollectionId(collection.id)}
+            />
           ))}
         </div>
 
@@ -70,3 +54,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

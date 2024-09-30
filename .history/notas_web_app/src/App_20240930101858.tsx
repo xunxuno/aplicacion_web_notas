@@ -3,14 +3,14 @@ import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
 import NoteModal from './components/NoteModal';
 
-// Renombrar la interfaz para evitar conflictos
+// Define las interfaces aquí o en un archivo separado.
 interface Note {
   id: string;
   title: string;
   content: string;
 }
 
-interface NoteCollectionInterface {
+interface NoteCollection {
   id: string;
   notes: Note[];
 }
@@ -43,17 +43,15 @@ const App: React.FC = () => {
 
         {/* Mostrar colecciones de notas */}
         <div>
-          {state.collections.map((collection: NoteCollectionInterface) => (
+          {state.collections.map((collection: NoteCollection) => (  // Especificar el tipo aquí
             <NoteCollection
-            key={collection.id}
-            collection={collection}
-            onNoteClick={(noteId) => {
-              // Aquí podrías abrir un modal para ver la nota
-              console.log("Nota ID:", noteId); // Ejemplo de uso
-            }}
-            onCollectionClick={() => setActiveCollectionId(collection.id)}
-          />
-          
+              key={collection.id}
+              collection={collection}
+              onNoteClick={(noteId) => {
+                // Aquí se podría abrir un modal para ver la nota
+              }}
+              onCollectionClick={() => setActiveCollectionId(collection.id)}
+            />
           ))}
         </div>
 

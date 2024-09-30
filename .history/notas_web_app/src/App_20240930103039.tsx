@@ -45,15 +45,13 @@ const App: React.FC = () => {
         <div>
           {state.collections.map((collection: NoteCollectionInterface) => (
             <NoteCollection
-            key={collection.id}
-            collection={collection}
-            onNoteClick={(noteId) => {
-              // Aquí podrías abrir un modal para ver la nota
-              console.log("Nota ID:", noteId); // Ejemplo de uso
-            }}
-            onCollectionClick={() => setActiveCollectionId(collection.id)}
-          />
-          
+              key={collection.id}
+              collection={collection}
+              onNoteClick={(noteId) => {
+                // Aquí podrías abrir un modal para ver la nota
+              }}
+              onCollectionClick={() => setActiveCollectionId(collection.id)}
+            />
           ))}
         </div>
 
