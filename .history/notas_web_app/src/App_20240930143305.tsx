@@ -43,7 +43,7 @@ const App: React.FC = () => {
         <button onClick={() => setModalOpen(true)}>Agregar Nota</button>
 
         {/* Mostrar colecciones de notas */}
-        <div>
+        <div className='note-collection'>
           {state.collections.map((collection: NoteCollectionInterface) => (
             <NoteCollection
             key={collection.id}

@@ -1,0 +1,99 @@
+/* styles.css */
+
+/* Fuente global */
+body {
+  font-family: 'Noto Sans', sans-serif;
+  background-color: #f9f9f9; /* Fondo general */
+  color: #000; /* Color del texto */
+}
+
+/* AppBar */
+h1 {
+  font-weight: bold; /* Negrita para el título */
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-weight: 400; /* Fuente regular para el subtítulo */
+  margin: 0;
+  padding: 0;
+}
+
+div.app-bar {
+  background-color: #cce7ff; /* Color pastel para el fondo */
+  border-radius: 10px; /* Bordes redondeados */
+  margin: 0; /* Sin márgenes */
+  padding: 20px; /* Padding de 20px */
+}
+
+/* Botón de Agregar Nota */
+button {
+  background-color: #b3e0ff; /* Color pastel */
+  color: #000; /* Color del texto */
+  border: none;
+  border-radius: 50%; /* Forma redondeada */
+  padding: 10px 15px; /* Padding */
+  cursor: pointer; /* Cambiar cursor */
+  margin: 20px; /* Margin de 20px */
+  transition: background-color 0.3s; /* Efecto de transición */
+}
+
+button:hover {
+  background-color: #99ccff; /* Color al pasar el ratón */
+}
+
+/* Modal */
+.note-modal {
+  position: fixed; /* Fijo para que se superponga */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centrar el modal */
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px; /* Padding */
+  z-index: 1000; /* Z-index alto */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombra */
+}
+
+/* Panel de Colección de Notas */
+.note-collection {
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px; /* Padding */
+  margin: 10px; /* Margen */
+}
+
+/* Nota */
+.note {
+  background-color: #e6f7ff; /* Color de fondo pastel */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px; /* Padding */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  margin: 10px 0; /* Margen vertical */
+  position: relative; /* Posición relativa para botones */
+}
+
+.note h3 {
+  font-weight: 500; /* Negrita ligera para el título de la nota */
+}
+
+.note button {
+  position: absolute; /* Posición absoluta para botones */
+  top: 10px;
+  right: 10px; /* Alineado a la derecha */
+  background-color: #ffcccc; /* Color de fondo para botón de eliminar */
+}
+
+/* Panel de Nota */
+.note-panel {
+  padding: 20px; /* Padding */
+  border-radius: 10px; /* Bordes redondeados */
+  background-color: #f0f8ff; /* Fondo pastel claro */
+}
+
+/* Títulos en los Paneles */
+.note-panel h3,
+.note h3 {
+  font-weight: 500; /* Negrita ligera */
+}

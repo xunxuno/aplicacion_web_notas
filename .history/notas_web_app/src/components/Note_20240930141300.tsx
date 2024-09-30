@@ -20,7 +20,7 @@ const Note: React.FC<NoteProps> = ({ note, onClick }) => {
   };
 
   return (
-    <div className="note" onClick={onClick}>
+    <div className="note" onClick={onClick} style={{ cursor: 'pointer' }}>
       <h3>{note.title}</h3>
       <p>{note.content}</p>
       <button onClick={handleDelete}>Eliminar</button>

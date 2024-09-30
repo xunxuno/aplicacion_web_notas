@@ -6,7 +6,7 @@ interface AddNoteButtonProps {
 
 const AddNoteButton: React.FC<AddNoteButtonProps> = ({ onClick }) => {
   return (
-    <button className="add-note-button" onClick={onClick}>
+    <button onClick={onClick}>
       Add Note
     </button>
   );

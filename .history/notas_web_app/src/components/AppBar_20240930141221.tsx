@@ -1,10 +1,10 @@
 import React from 'react';
-
+import '../styles.css';
 
 const AppBar: React.FC = () => {
   return (
-    <div className="app-bar">
-      <h1>Aplicación de Notas</h1>
+    <div>
+      <h1>App Title</h1>
       <h2>Welcome to the Notes App!</h2>
     </div>
   );

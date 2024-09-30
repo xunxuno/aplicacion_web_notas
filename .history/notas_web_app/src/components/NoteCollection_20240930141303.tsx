@@ -16,7 +16,7 @@ interface NoteCollectionProps {
 
 const NoteCollection: React.FC<NoteCollectionProps> = ({ collection, onNoteClick, onCollectionClick }) => {
   return (
-    <div className="note-collection" onClick={onCollectionClick}>
+    <div onClick={onCollectionClick} style={{ cursor: 'pointer' }}>
       <h3>{collection.id}</h3>
       {collection.notes.map(note => (
         <Note key={note.id} note={note} onClick={() => onNoteClick(note.id)} />

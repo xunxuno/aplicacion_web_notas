@@ -3,7 +3,6 @@ import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
 import NoteModal from './components/NoteModal';
 import './styles.css'; 
-import AppBar from './components/AppBar';
 
 // Renombrar la interfaz para evitar conflictos
 interface Note {
@@ -37,7 +36,8 @@ const App: React.FC = () => {
   return (
     <NotesProvider>
       <div>
-        <AppBar></AppBar>
+        <h1>Aplicación de Notas</h1>
+        <h2>Bienvenido a tu espacio de notas</h2>
 
         {/* Botón para abrir el modal de agregar nota */}
         <button onClick={() => setModalOpen(true)}>Agregar Nota</button>

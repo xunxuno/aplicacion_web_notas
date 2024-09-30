@@ -37,6 +37,8 @@ const App: React.FC = () => {
   return (
     <NotesProvider>
       <div>
+        <h1>Aplicación de Notas</h1>
+        <h2>Bienvenido a tu espacio de notas</h2>
         <AppBar></AppBar>
 
         {/* Botón para abrir el modal de agregar nota */}

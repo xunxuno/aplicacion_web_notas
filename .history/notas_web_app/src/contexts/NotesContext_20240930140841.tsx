@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, ReactNode } from 'react';
 
 
+
 // Definir el contexto
 interface Note {
   id: string;

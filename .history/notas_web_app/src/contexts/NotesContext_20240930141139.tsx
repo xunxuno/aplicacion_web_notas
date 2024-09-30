@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, ReactNode } from 'react';
+import '../styles.css';
 
 
 // Definir el contexto

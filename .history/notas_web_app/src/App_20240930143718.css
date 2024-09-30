@@ -42,7 +42,6 @@ body {
 .note {
   background-color: #1515bb; /* Color pastel */
   padding: 20px;
-  cursor: 'pointer';
   margin: 10px;
   border-radius: 10px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
@@ -52,5 +51,4 @@ body {
 .note-collection {
   background-color: transparent; /* Sin color de fondo */
   padding: 20px;
-  cursor: 'pointer';
 }

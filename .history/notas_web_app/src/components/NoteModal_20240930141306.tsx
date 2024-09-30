@@ -28,7 +28,7 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote }) => {
   };
 
   return (
-    <div className="note-modal">
+    <div>
       <h3>Add Note</h3>
       <input
         type="text"

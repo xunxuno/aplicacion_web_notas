@@ -19,7 +19,7 @@ body {
 /* Botón de agregar nota */
 .add-note-button {
   margin: 20px;
-  background-color: #7a5723; /* Color pastel */
+  background-color: #ffebcd; /* Color pastel */
   border: none;
   border-radius: 20px; /* Bordes redondeados */
   padding: 10px 20px;
@@ -40,9 +40,8 @@ body {
 
 /* Nota */
 .note {
-  background-color: #1515bb; /* Color pastel */
+  background-color: #e6e6fa; /* Color pastel */
   padding: 20px;
-  cursor: 'pointer';
   margin: 10px;
   border-radius: 10px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
@@ -52,5 +51,4 @@ body {
 .note-collection {
   background-color: transparent; /* Sin color de fondo */
   padding: 20px;
-  cursor: 'pointer';
 }
