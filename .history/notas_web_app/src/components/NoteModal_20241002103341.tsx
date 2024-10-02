@@ -9,30 +9,24 @@ interface Note {
 
 interface NoteModalProps {
   onClose: () => void;
-  onAddNote: (note: Note) => void;
-  activeCollectionId: string | null; // Permitir null aquí
+  onAddNote: (note: Note) => void; // Asegúrate de que el tipo aquí sea correcto
+  activeCollectionId: string; // Agrega esta propiedad
 }
-
 
 const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollectionId }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
   const handleSave = () => {
-    if (activeCollectionId) { // Solo crear la nota si activeCollectionId no es null
-      const newNote: Note = {
-        id: Date.now().toString(),
-        title,
-        content,
-        collectionId: activeCollectionId,
-      };
-      onAddNote(newNote);
-      onClose();
-    } else {
-      alert('Debes seleccionar una colección para agregar una nota.'); // Mensaje de advertencia
-    }
+    const newNote: Note = {
+      id: Date.now().toString(), // Generar un ID único
+      title,
+      content,
+      collectionId: activeCollectionId, // Asegúrate de asignar `collectionId`
+    };
+    onAddNote(newNote);
+    onClose(); // Cerrar el modal después de agregar la nota
   };
-  
 
   return (
     <div>

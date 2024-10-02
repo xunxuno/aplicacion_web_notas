@@ -19,20 +19,15 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
   const [content, setContent] = useState('');
 
   const handleSave = () => {
-    if (activeCollectionId) { // Solo crear la nota si activeCollectionId no es null
-      const newNote: Note = {
-        id: Date.now().toString(),
-        title,
-        content,
-        collectionId: activeCollectionId,
-      };
-      onAddNote(newNote);
-      onClose();
-    } else {
-      alert('Debes seleccionar una colección para agregar una nota.'); // Mensaje de advertencia
-    }
+    const newNote: Note = {
+      id: Date.now().toString(), // Generar un ID único
+      title,
+      content,
+      collectionId: activeCollectionId, // Asegúrate de asignar `collectionId`
+    };
+    onAddNote(newNote);
+    onClose(); // Cerrar el modal después de agregar la nota
   };
-  
 
   return (
     <div>

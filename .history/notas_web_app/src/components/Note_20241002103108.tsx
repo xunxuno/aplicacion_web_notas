@@ -1,14 +1,14 @@
 import React from 'react';
-// Note.tsx
+
 interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string; // Asegúrate de que esto esté aquí
+  collectionId: string; // Propiedad obligatoria
 }
 
 interface NoteProps {
-  note: Note;
+  note: Note; // Asegúrate de que `Note` tenga `collectionId`
   onClick: () => void;
   onDelete: () => void;
 }

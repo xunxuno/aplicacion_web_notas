@@ -9,16 +9,12 @@ interface NoteInterface {
 }
 
 interface NoteCollectionProps {
-  collection: {
-    id: string;
-    notes: NoteInterface[]; // Asegúrate de que sea NoteInterface
-  };
+  collection: { id: string; notes: NoteInterface[] };
   onNoteClick: (noteId: string) => void;
   onCollectionClick: () => void;
-  onNoteMove: (noteId: string, targetCollectionId: string) => void;
-  onDelete: (noteId: string) => void;
+  onNoteMove: (noteId: string, sourceCollectionId: string, targetCollectionId: string) => void;
+  onDelete: (noteId: string) => void; // Definir la prop de eliminación
 }
-
 
 const NoteCollection: React.FC<NoteCollectionProps> = ({
   collection,

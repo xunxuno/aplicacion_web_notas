@@ -46,10 +46,16 @@ type NotesAction = AddNoteAction | DeleteNoteAction | MoveNoteAction;
 const initialState: NotesState = {
   collections: [
     {
-      id: '1',
+      id: 'collection-1',
       notes: [
         { id: 'note-1', title: 'Nota 1', content: 'Contenido de la nota 1' },
         { id: 'note-2', title: 'Nota 2', content: 'Contenido de la nota 2' },
+      ],
+    },
+    {
+      id: 'collection-2',
+      notes: [
+        { id: 'note-3', title: 'Nota 3', content: 'Contenido de la nota 3' },
       ],
     },
   ],

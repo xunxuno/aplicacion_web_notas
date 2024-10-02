@@ -44,15 +44,7 @@ interface MoveNoteAction {
 type NotesAction = AddNoteAction | DeleteNoteAction | MoveNoteAction;
 
 const initialState: NotesState = {
-  collections: [
-    {
-      id: '1',
-      notes: [
-        { id: 'note-1', title: 'Nota 1', content: 'Contenido de la nota 1' },
-        { id: 'note-2', title: 'Nota 2', content: 'Contenido de la nota 2' },
-      ],
-    },
-  ],
+  collections: [], // Colecciones vacías al inicio
 };
 
 const NotesContext = createContext<any>(null);
@@ -63,23 +55,23 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
     case 'ADD_NOTE':
       return {
         ...state,
-        collections: state.collections.map(collection => {
-          if (collection.id === action.payload.collectionId) {
-            return {
-              ...collection,
-              notes: [...collection.notes, action.payload.note], // Agregar la nueva nota
-            };
-          }
-          return collection;
-        }),
+        collections: state.collections.map((collection) =>
+          collection.id === action.payload.collectionId
+            ? { ...collection, notes: [...collection.notes, action.payload.note] }
+            : collection
+        ),
       };
     case 'DELETE_NOTE':
       return {
         ...state,
-        collections: state.collections.map(collection => ({
-          ...collection,
-          notes: collection.notes.filter(note => note.id !== action.payload.noteId), // Eliminar la nota
-        })),
+        collections: state.collections.map((collection) =>
+          collection.id === action.payload.collectionId
+            ? {
+                ...collection,
+                notes: collection.notes.filter((note) => note.id !== action.payload.noteId),
+              }
+            : collection
+        ),
       };
     case 'MOVE_NOTE':
       const { noteId, targetCollectionId } = action.payload;

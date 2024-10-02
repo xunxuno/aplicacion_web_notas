@@ -10,12 +10,11 @@ interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string; // Asegúrate de que esta propiedad esté aquí
 }
 
 interface NoteCollectionInterface {
   id: string;
-  notes: Note[]; // Asegúrate de que aquí también se use Note[]
+  notes: Note[];
 }
 
 const App: React.FC = () => {
@@ -24,15 +23,12 @@ const App: React.FC = () => {
   
   const { state, dispatch } = useContext(NotesContext);
 
-  const handleAddNote = (note: Omit<Note, 'collectionId'>) => { // Omitir collectionId al recibir
+  const handleAddNote = (note: Note) => {
     console.log("Nota a agregar:", note);
     if (activeCollectionId) {
       dispatch({
         type: 'ADD_NOTE',
-        payload: { 
-          collectionId: activeCollectionId, 
-          note: { ...note, collectionId: activeCollectionId }, // Agregar collectionId
-        },
+        payload: { collectionId: activeCollectionId, note },
       });
       console.log("Estado después de agregar:", state);
     }
@@ -54,29 +50,29 @@ const App: React.FC = () => {
         <button onClick={() => setModalOpen(true)}>Agregar Nota</button>
 
         <div>
-          {state.collections.map((collection: NoteCollectionInterface) => (
-            <NoteCollection
-              key={collection.id}
-              collection={collection}
-              onNoteClick={(noteId) => {
-                console.log("Nota ID:", noteId);
-              }}
-              onCollectionClick={() => setActiveCollectionId(collection.id)}
-              onNoteMove={(noteId, targetCollectionId) => {
-                dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
-              }}
-              onDelete={(noteId) => {
-                handleDeleteNote(noteId);
-              }}
-            />
-          ))}
+        {state.collections.map((collection: NoteCollectionInterface) => (
+          <NoteCollection
+            key={collection.id}
+            collection={collection}
+            onNoteClick={(noteId) => {
+              console.log("Nota ID:", noteId);
+            }}
+            onCollectionClick={() => setActiveCollectionId(collection.id)}
+            onNoteMove={(noteId, targetCollectionId) => {
+              dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
+            }}
+            onDelete={(noteId) => {
+              dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
+            }}
+          />
+        ))}
         </div>
 
         {isModalOpen && (
           <NoteModal
             onClose={() => setModalOpen(false)}
             onAddNote={handleAddNote}
-            activeCollectionId={activeCollectionId!} // Asegúrate de que no sea null
+            activeCollectionId={activeCollectionId}
           />
         )}
       </div>

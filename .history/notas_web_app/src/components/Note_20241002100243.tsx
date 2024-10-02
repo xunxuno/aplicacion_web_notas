@@ -1,16 +1,15 @@
 import React from 'react';
-// Note.tsx
+
 interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string; // Asegúrate de que esto esté aquí
 }
 
 interface NoteProps {
   note: Note;
-  onClick: () => void;
-  onDelete: () => void;
+  onClick: () => void; // Agregar prop para manejar clic en nota
+  onDelete: (noteId: string) => void; // Agregar prop para manejar eliminación de nota
 }
 
 const Note: React.FC<NoteProps> = ({ note, onClick, onDelete }) => {
@@ -18,7 +17,10 @@ const Note: React.FC<NoteProps> = ({ note, onClick, onDelete }) => {
     <div className="note" onClick={onClick} style={{ cursor: 'pointer' }}>
       <h3>{note.title}</h3>
       <p>{note.content}</p>
-      <button onClick={onDelete}>Eliminar</button> {/* Botón para eliminar la nota */}
+      <button onClick={(e) => {
+        e.stopPropagation(); // Evitar que se active el onClick del contenedor
+        onDelete(note.id); // Llamar a onDelete al hacer clic
+      }}>Eliminar</button>
     </div>
   );
 };

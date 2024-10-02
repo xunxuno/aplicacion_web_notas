@@ -17,39 +17,24 @@ interface NotesState {
   collections: Collection[];
 }
 
-
-interface AddNoteAction {
-  type: 'ADD_NOTE';
-  payload: {
-    collectionId: string;
-    note: Note;
-  };
+interface Action {
+  type: string;
+  payload: any;
 }
-
-interface DeleteNoteAction {
-  type: 'DELETE_NOTE';
-  payload: {
-    collectionId: string;
-    noteId: string;
-  };
-}
-
-interface MoveNoteAction {
-  type: 'MOVE_NOTE';
-  payload: {
-    noteId: string;
-    targetCollectionId: string;
-  };
-}
-type NotesAction = AddNoteAction | DeleteNoteAction | MoveNoteAction;
 
 const initialState: NotesState = {
   collections: [
     {
-      id: '1',
+      id: 'collection-1',
       notes: [
         { id: 'note-1', title: 'Nota 1', content: 'Contenido de la nota 1' },
         { id: 'note-2', title: 'Nota 2', content: 'Contenido de la nota 2' },
+      ],
+    },
+    {
+      id: 'collection-2',
+      notes: [
+        { id: 'note-3', title: 'Nota 3', content: 'Contenido de la nota 3' },
       ],
     },
   ],
@@ -58,39 +43,36 @@ const initialState: NotesState = {
 const NotesContext = createContext<any>(null);
 
 // Reducer para manejar las acciones
-const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
+const notesReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_NOTE':
       return {
         ...state,
-        collections: state.collections.map(collection => {
-          if (collection.id === action.payload.collectionId) {
-            return {
-              ...collection,
-              notes: [...collection.notes, action.payload.note], // Agregar la nueva nota
-            };
-          }
-          return collection;
-        }),
+        collections: state.collections.map((collection) =>
+          collection.id === action.payload.collectionId
+            ? { ...collection, notes: [...collection.notes, action.payload.note] }
+            : collection
+        ),
       };
     case 'DELETE_NOTE':
       return {
         ...state,
-        collections: state.collections.map(collection => ({
-          ...collection,
-          notes: collection.notes.filter(note => note.id !== action.payload.noteId), // Eliminar la nota
-        })),
+        collections: state.collections.map((collection) =>
+          collection.id === action.payload.collectionId
+            ? {
+                ...collection,
+                notes: collection.notes.filter((note) => note.id !== action.payload.noteId),
+              }
+            : collection
+        ),
       };
     case 'MOVE_NOTE':
       const { noteId, targetCollectionId } = action.payload;
       const sourceCollection = state.collections.find((collection) =>
         collection.notes.some((note) => note.id === noteId)
       );
-      if (!sourceCollection) return state;
-
       const noteToMove = sourceCollection.notes.find((note) => note.id === noteId);
-      if (!noteToMove) return state;
-
+      
       return {
         ...state,
         collections: state.collections.map((collection) => {
@@ -113,7 +95,6 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       return state;
   }
 };
-
 
 // Proveedor del contexto con soporte para 'children'
 interface NotesProviderProps {
