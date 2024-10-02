@@ -22,7 +22,7 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
     const newNote: Omit<Note, 'id'> = {
       title,
       content,
-      collectionId: activeCollectionId || '', 
+      collectionId: activeCollectionId || '', // Asegúrate de que collectionId se pase aquí
     };
 
     console.log("Nueva Nota:", newNote);

@@ -1,10 +1,13 @@
 import React, { createContext, useReducer, ReactNode } from 'react';
 
+
+// Definir el contexto
 interface Note {
   id: string;
   title: string;
   content: string;
 }
+
 
 
 interface NoteCollectionInterface {
@@ -60,11 +63,12 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
   switch (action.type) {
     case 'ADD_NOTE':
       const newNoteId = state.nextNoteId; // ID de la nueva nota
-      const collectionId = action.payload.collectionId || state.nextCollectionId.toString();
+      const collectionId = action.payload.collectionId;
 
       // Verificar si la colección ya existe
       const collectionExists = state.collections.some(collection => collection.id === collectionId);
 
+      // Si la colección existe, agregar la nota a esa colección
       const updatedCollections = collectionExists
         ? state.collections.map(collection => {
             if (collection.id === collectionId) {
@@ -87,7 +91,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
                 {
                   ...action.payload.note,
                   id: newNoteId.toString(), // Asigna el nuevo ID a la nota
-                  collectionId: state.nextCollectionId.toString(), // Asigna el ID de colección a la nota
+                  collectionId: state.nextCollectionId.toString(), // Asigna el nuevo ID de colección a la nota
                 },
               ],
             },
@@ -97,7 +101,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
         ...state,
         collections: updatedCollections,
         nextNoteId: state.nextNoteId + 1, // Incrementa el ID de la nota
-        nextCollectionId: state.nextCollectionId + 1, // Incrementa el ID de la colección para la próxima
+        nextCollectionId: state.nextCollectionId + 1, // Incrementa el ID de la colección si se creó una nueva
       };
     case 'DELETE_NOTE':
       return {
@@ -139,6 +143,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       return state;
   }
 };
+
 
 
 // Proveedor del contexto con soporte para 'children'

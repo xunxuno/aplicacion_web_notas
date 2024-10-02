@@ -1,10 +1,13 @@
 import React, { createContext, useReducer, ReactNode } from 'react';
 
+
+// Definir el contexto
 interface Note {
   id: string;
   title: string;
   content: string;
 }
+
 
 
 interface NoteCollectionInterface {
@@ -60,7 +63,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
   switch (action.type) {
     case 'ADD_NOTE':
       const newNoteId = state.nextNoteId; // ID de la nueva nota
-      const collectionId = action.payload.collectionId || state.nextCollectionId.toString();
+      const collectionId = action.payload.collectionId || state.nextCollectionId.toString(); // Si no hay collectionId, asignar el siguiente
 
       // Verificar si la colección ya existe
       const collectionExists = state.collections.some(collection => collection.id === collectionId);
@@ -139,6 +142,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       return state;
   }
 };
+
 
 
 // Proveedor del contexto con soporte para 'children'

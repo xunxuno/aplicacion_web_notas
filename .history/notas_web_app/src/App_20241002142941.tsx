@@ -6,39 +6,40 @@ import NoteModal from './components/NoteModal';
 import './styles.css';
 import AppBar from './components/AppBar';
 
+// Renombrar la interfaz para evitar conflictos
 interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string;
+  collectionId: string; // Asegúrate de que esta propiedad esté aquí
 }
 
 interface NoteCollectionInterface {
   id: string;
-  notes: Note[];
+  notes: Note[]; // Asegúrate de que aquí también se use Note[]
 }
 
 const App: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
+  
   const { state, dispatch } = useContext(NotesContext);
 
-  useEffect(() => {
-    console.log("Actualización de colecciones:");
-    state.collections.forEach((collection: NoteCollectionInterface) => {
-      console.log(`Notas en la colección ${collection.id}:`);
-      collection.notes.forEach((n: Note) => {
-        console.log(`Nota ID: ${n.id}, Título: ${n.title}, Contenido: ${n.content}`);
-      });
-    });
-  }, [state.collections]);
-
   const handleAddNote = (note: Omit<Note, 'id'>) => {
+    // Usar el siguiente collectionId secuencial
     const collectionIdToUse = state.nextCollectionId.toString();
   
     dispatch({
       type: 'ADD_NOTE',
       payload: { collectionId: collectionIdToUse, note },
+    });
+  
+    // Mostrar todas las notas de todas las colecciones
+    state.collections.forEach((collection: NoteCollectionInterface) => {
+      console.log(`Notas en la colección ${collection.id}:`);
+      collection.notes.forEach((n: Note) => {
+        console.log(`Nota ID: ${n.id}, Título: ${n.title}, Contenido: ${n.content}`);
+      });
     });
   
     setModalOpen(false);
@@ -47,12 +48,12 @@ const App: React.FC = () => {
   
   
   
-  
 
   
   const handleOpenModal = () => {
+    // Si no hay colecciones, no necesitas asignar activeCollectionId aquí
     if (state.collections.length === 0) {
-      setActiveCollectionId(null);
+      setActiveCollectionId(null); // Esto es opcional, pero puedes dejarlo como null
     } else {
       // Asigna automáticamente el ID de la primera colección disponible
       setActiveCollectionId(state.collections[0].id);
@@ -91,7 +92,7 @@ const App: React.FC = () => {
           <NoteModal
             onClose={() => setModalOpen(false)}
             onAddNote={handleAddNote}
-            activeCollectionId={activeCollectionId!}
+            activeCollectionId={activeCollectionId!} // Asegúrate de que no sea null
           />
         )}
       </div>

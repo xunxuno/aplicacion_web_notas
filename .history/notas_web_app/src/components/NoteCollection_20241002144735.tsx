@@ -40,7 +40,7 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
           />
         ))
       ) : (
-        <p></p> //colecciones vacías
+        <p>No hay notas en esta colección.</p> // Mensaje para colecciones vacías
       )}
     </div>
   );

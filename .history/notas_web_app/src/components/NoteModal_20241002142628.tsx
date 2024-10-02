@@ -22,12 +22,11 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
     const newNote: Omit<Note, 'id'> = {
       title,
       content,
-      collectionId: activeCollectionId || '', 
+      collectionId: activeCollectionId || '', // Asegúrate de que collectionId se pase aquí
     };
 
     console.log("Nueva Nota:", newNote);
     onAddNote(newNote);
-    console.log("Estado actualizado de las colecciones: ", state.collections);
     setTitle(''); // Reiniciar el campo de título
     setContent(''); // Reiniciar el campo de contenido
     onClose(); // Cerrar el modal después de guardar
