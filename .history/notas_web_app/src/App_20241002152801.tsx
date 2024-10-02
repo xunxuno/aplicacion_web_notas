@@ -46,6 +46,10 @@ const App: React.FC = () => {
   
   
   
+  
+  
+
+  
   const handleOpenModal = () => {
     if (state.collections.length === 0) {
       setActiveCollectionId(null);

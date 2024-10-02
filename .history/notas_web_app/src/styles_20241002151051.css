@@ -1,0 +1,98 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #000;
+  }
+  
+  .app-bar {
+    background-color: #ffebee; /* Color pastel */
+    border-radius: 8px;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  h2 {
+    font-weight: 400;
+  }
+  
+  .button-add-note {
+    margin: 20px 0;
+    float: right;
+    background-color: #ff8a80; /* Color pastel */
+    color: #fff;
+    border-radius: 50%;
+  }
+  
+  .modal {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .noteDiv {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    width: 40px;
+    height: auto;
+  }
+  
+  .note-title {
+    font-weight: 500; /* w500 */
+  }
+  
+  .note-content {
+    font-size: 14px; /* Tamaño de fuente legible */
+  }
+  
+  .collection {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+  }
+  
+  .note-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .note-card {
+    width: 150px; /* Tamaño de las notas */
+    background-color: #e1bee7; /* Color pastel dinámico */
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .note-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .edit-button, .delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .edit-button {
+    color: #4caf50;
+  }
+  
+  .delete-button {
+    color: #f44336;
+  }
+  

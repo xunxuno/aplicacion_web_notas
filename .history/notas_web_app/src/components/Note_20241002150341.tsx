@@ -15,7 +15,7 @@ interface NoteProps {
 
 const Note: React.FC<NoteProps> = ({ note, onClick, onDelete }) => {
   return (
-    <div className="noteDiv" onClick={onClick}>
+    <div className="notess" onClick={onClick}>
       <h3>{note.title}</h3>
       <p>{note.content}</p>
       <button onClick={onDelete}>Eliminar</button>

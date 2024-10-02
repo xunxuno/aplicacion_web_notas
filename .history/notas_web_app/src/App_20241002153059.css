@@ -1,11 +1,19 @@
-body {
-    font-family: 'Noto Sans', sans-serif;
-    background-color: #f7f7f7;
-    margin: 0;
-    padding: 0;
-    color: #000;
-  }
+/* styles.css */
 
+/* Estilo global */
+body {
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8; /* Color de fondo general */
+}
+
+.app-bar {
+  background-color: #ffebee; /* Color pastel */
+  border-radius: 8px;
+  margin: 0;
+  padding: 20px;
+}
 
 /* Estilo para el contenedor principal de la aplicación */
 .app-container {

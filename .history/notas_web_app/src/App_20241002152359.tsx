@@ -46,6 +46,10 @@ const App: React.FC = () => {
   
   
   
+  
+  
+
+  
   const handleOpenModal = () => {
     if (state.collections.length === 0) {
       setActiveCollectionId(null);
@@ -59,12 +63,12 @@ const App: React.FC = () => {
 
   return (
     <NotesProvider>
-      <div className="app-container"> {/* Clase para el contenedor principal */}
+      <div>
         <AppBar />
-  
-        <button className="add-note-button" onClick={handleOpenModal}>Agregar Nota</button> {/* Clase para el botón */}
-  
-        <div className="collections-container"> {/* Clase para el contenedor de colecciones */}
+
+        <button onClick={handleOpenModal}>Agregar Nota</button>
+
+        <div>
           {state.collections.map((collection: NoteCollectionInterface) => (
             <NoteCollection
               key={collection.id}
@@ -82,7 +86,7 @@ const App: React.FC = () => {
             />
           ))}
         </div>
-  
+
         {isModalOpen && (
           <NoteModal
             onClose={() => setModalOpen(false)}
@@ -94,5 +98,6 @@ const App: React.FC = () => {
     </NotesProvider>
   );
 };
+
 
 export default App;

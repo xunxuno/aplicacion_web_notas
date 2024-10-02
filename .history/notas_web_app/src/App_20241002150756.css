@@ -1,0 +1,56 @@
+/* styles.css */
+
+/* Estilo global */
+body {
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8; /* Color de fondo general */
+}
+
+/* AppBar */
+.app-bar {
+  background-color: #ffcccb; /* Color pastel */
+  border-radius: 10px;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Botón de agregar nota */
+.add-note-button {
+  margin: 20px;
+  background-color: #7a5723; /* Color pastel */
+  border: none;
+  border-radius: 20px; /* Bordes redondeados */
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Modal de nota */
+note-modal {
+  background-color: rgb(69, 25, 25);
+  border-radius: 10px;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Asegúrate de que esté encima */
+}
+
+/* Nota */
+.note {
+  color: #1515bb; /* Color pastel */
+  padding: 20px;
+  cursor: 'pointer';
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Colección de notas */
+.note-collection {
+  background-color: transparent; /* Sin color de fondo */
+  padding: 20px;
+  cursor: 'pointer';
+}
