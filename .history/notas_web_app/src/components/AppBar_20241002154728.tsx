@@ -6,7 +6,7 @@ const AppBar: React.FC = () => {
     backgroundColor: '#ffebee', // Color pastel
     borderRadius: '8px',
     margin: '0',
-    padding: '20px',
+    padding: '0',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Agregar sombra para mayor profundidad
   };
 

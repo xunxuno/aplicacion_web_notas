@@ -1,18 +1,15 @@
-/* styles.css */
-
-/* Estilo global */
 body {
-  font-family: 'Noto Sans', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f8f8; /* Color de fondo general */
-}
-
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #000;
+  }
 
 
 /* Estilo para el contenedor principal de la aplicación */
 .app-container {
-  width: 100%; /* Ancho máximo */
+  max-width: 800px; /* Ancho máximo */
   margin: 0 auto; /* Centrar el contenedor */
   padding: 20px; /* Espaciado interno */
   background-color: #f0f0f0; /* Color de fondo claro */
@@ -40,6 +37,7 @@ body {
 
 /* Estilo para el contenedor de colecciones */
 .collections-container {
+  width: 100%;
   display: flex; /* Usar flexbox para una mejor organización */
   flex-direction: column; /* Organizar en columnas */
 }

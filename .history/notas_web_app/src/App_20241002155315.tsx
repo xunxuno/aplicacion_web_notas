@@ -63,9 +63,9 @@ const App: React.FC = () => {
       <div className="app-container">
       
   
-        <button className="add-note-button" onClick={handleOpenModal}>Agregar Nota</button>
+        <button className="add-note-button" onClick={handleOpenModal}>Agregar Nota</button> {/* Clase para el botón */}
   
-        <div className="collections-container">
+        <div className="collections-container"> {/* Clase para el contenedor de colecciones */}
           {state.collections.map((collection: NoteCollectionInterface) => (
             <NoteCollection
               key={collection.id}

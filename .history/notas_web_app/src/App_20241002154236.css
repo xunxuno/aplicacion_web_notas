@@ -8,11 +8,18 @@ body {
   background-color: #f8f8f8; /* Color de fondo general */
 }
 
+.app-bar {
+  background-color: #ffebee; /* Color pastel */
+  border-radius: 8px;
+  margin: 0;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Agregar sombra para mayor profundidad */
+}
 
 
 /* Estilo para el contenedor principal de la aplicación */
 .app-container {
-  width: 100%; /* Ancho máximo */
+  max-width: 800px; /* Ancho máximo */
   margin: 0 auto; /* Centrar el contenedor */
   padding: 20px; /* Espaciado interno */
   background-color: #f0f0f0; /* Color de fondo claro */

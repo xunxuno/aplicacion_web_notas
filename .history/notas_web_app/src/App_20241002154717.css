@@ -12,7 +12,7 @@ body {
 
 /* Estilo para el contenedor principal de la aplicación */
 .app-container {
-  width: 100%; /* Ancho máximo */
+  max-width: 800px; /* Ancho máximo */
   margin: 0 auto; /* Centrar el contenedor */
   padding: 20px; /* Espaciado interno */
   background-color: #f0f0f0; /* Color de fondo claro */

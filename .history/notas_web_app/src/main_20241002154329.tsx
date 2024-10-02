@@ -6,8 +6,6 @@ import './styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <NotesProvider>
-      <App />
-    </NotesProvider>
+    <App />
   </React.StrictMode>,
 );
