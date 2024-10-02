@@ -51,9 +51,6 @@ body {
   display: flex; /* Usar flexbox para alinear los elementos */
   justify-content: flex-end; /* Alinear los elementos al final (derecha) */
   margin-bottom: 20px; /* Margen inferior para separar del siguiente elemento */
-  padding: 0 20px; /* Espaciado interno a la izquierda y derecha */
-  /* Esto asegura que el botón no se salga del borde */
 }
-
 
 

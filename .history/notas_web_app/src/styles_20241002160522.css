@@ -28,11 +28,8 @@ body {
   margin-bottom: 20px; /* Espacio debajo del botón */
   font-size: 16px; /* Tamaño de fuente */
   transition: background-color 0.3s; /* Transición para el color de fondo */
-  /* Ajustes para centrar el botón */
   margin-left: auto; /* Empuja el botón a la derecha */
-  margin-right: 60px; /* Margen a la derecha para no pegarse al borde */
 }
-
 
 /* Efecto hover para el botón de agregar nota */
 .add-note-button:hover {
@@ -51,9 +48,7 @@ body {
   display: flex; /* Usar flexbox para alinear los elementos */
   justify-content: flex-end; /* Alinear los elementos al final (derecha) */
   margin-bottom: 20px; /* Margen inferior para separar del siguiente elemento */
-  padding: 0 20px; /* Espaciado interno a la izquierda y derecha */
-  /* Esto asegura que el botón no se salga del borde */
+  margin-right: 70px; /* Espacio a la derecha para alejar del borde */
 }
-
 
 

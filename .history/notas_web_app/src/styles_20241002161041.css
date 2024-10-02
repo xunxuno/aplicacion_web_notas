@@ -29,8 +29,6 @@ body {
   font-size: 16px; /* Tamaño de fuente */
   transition: background-color 0.3s; /* Transición para el color de fondo */
   /* Ajustes para centrar el botón */
-  margin-left: auto; /* Empuja el botón a la derecha */
-  margin-right: 60px; /* Margen a la derecha para no pegarse al borde */
 }
 
 
