@@ -8,19 +8,15 @@ interface Note {
   content: string;
 }
 
-
-
-interface NoteCollectionInterface {
-  id: string; // ID de la colección, generado de manera secuencial
-  notes: Note[]; // Lista de notas en la colección
+interface Collection {
+  id: string;
+  notes: Note[];
 }
 
 interface NotesState {
-  collections: NoteCollectionInterface[];
-  nextNoteId: number; // Para los IDs de las notas
-  nextCollectionId: number; // Para los IDs de las colecciones
+  collections: Collection[];
+  noteIdCounter: number;
 }
-
 
 
 interface AddNoteAction {
@@ -50,11 +46,8 @@ type NotesAction = AddNoteAction | DeleteNoteAction | MoveNoteAction;
 
 const initialState: NotesState = {
   collections: [],
-  nextNoteId: 1, // Empieza desde 1 para el ID de notas
-  nextCollectionId: 1, // Empieza desde 1 para el ID de colecciones
+  noteIdCounter: 0,
 };
-
-
 
 const NotesContext = createContext<any>(null);
 
@@ -62,53 +55,29 @@ const NotesContext = createContext<any>(null);
 const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
   switch (action.type) {
     case 'ADD_NOTE':
-      const newNoteId = state.nextNoteId; // ID de la nueva nota
-      const collectionId = action.payload.collectionId;
-
-      // Verificar si la colección ya existe
-      const collectionExists = state.collections.some(collection => collection.id === collectionId);
-
-      // Si la colección existe, agregar la nota a esa colección
-      const updatedCollections = collectionExists
-        ? state.collections.map(collection => {
-            if (collection.id === collectionId) {
-              const newNote = {
-                ...action.payload.note,
-                id: newNoteId.toString(), // Asigna el nuevo ID a la nota
-              };
-              return {
-                ...collection,
-                notes: [...collection.notes, newNote],
-              };
-            }
-            return collection;
-          })
-        : [
-            ...state.collections,
-            {
-              id: state.nextCollectionId.toString(), // Crea una nueva colección con ID secuencial
-              notes: [
-                {
-                  ...action.payload.note,
-                  id: newNoteId.toString(), // Asigna el nuevo ID a la nota
-                  collectionId: state.nextCollectionId.toString(), // Asigna el nuevo ID de colección a la nota
-                },
-              ],
-            },
-          ];
-
       return {
         ...state,
-        collections: updatedCollections,
-        nextNoteId: state.nextNoteId + 1, // Incrementa el ID de la nota
-        nextCollectionId: state.nextCollectionId + 1, // Incrementa el ID de la colección si se creó una nueva
+        collections: state.collections.map(collection => {
+          if (collection.id === action.payload.collectionId) {
+            const newNote = {
+              ...action.payload.note,
+              id: `${state.noteIdCounter}`, // Asigna el ID secuencial
+            };
+            return {
+              ...collection,
+              notes: [...collection.notes, newNote],
+            };
+          }
+          return collection;
+        }),
+        noteIdCounter: state.noteIdCounter + 1, // Incrementa el contador
       };
-    /*case 'DELETE_NOTE':
+    case 'DELETE_NOTE':
       return {
         ...state,
         collections: state.collections.map(collection => ({
           ...collection,
-          notes: collection.notes.filter(note => note.id !== action.payload.noteId),
+          notes: collection.notes.filter(note => note.id !== action.payload.noteId), // Eliminar la nota
         })),
       };
     case 'MOVE_NOTE':
@@ -138,12 +107,11 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
             return collection;
           }
         }),
-      };*/
+      };
     default:
       return state;
   }
 };
-
 
 
 // Proveedor del contexto con soporte para 'children'

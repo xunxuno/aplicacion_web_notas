@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
 import NoteModal from './components/NoteModal';
@@ -26,47 +26,31 @@ const App: React.FC = () => {
   const { state, dispatch } = useContext(NotesContext);
 
   const handleAddNote = (note: Omit<Note, 'id'>) => {
-    // Si no hay una colección activa, asignar la siguiente colección disponible
-    const collectionIdToUse = activeCollectionId || state.nextCollectionId.toString();
-  
-    dispatch({
-      type: 'ADD_NOTE',
-      payload: { collectionId: collectionIdToUse, note },
-    });
-  
-    // Mostrar todas las notas de todas las colecciones
-    state.collections.forEach((collection: NoteCollectionInterface) => {
-      console.log(`Notas en la colección ${collection.id}:`);
-      collection.notes.forEach((n: Note) => {
-        console.log(`Nota ID: ${n.id}, Título: ${n.title}, Contenido: ${n.content}`);
+    if (activeCollectionId) {
+      dispatch({
+        type: 'ADD_NOTE',
+        payload: { collectionId: activeCollectionId, note },
       });
-    });
-  
+    } else {
+      alert("Por favor, selecciona una colección antes de agregar una nota.");
+    }
     setModalOpen(false);
   };
   
   
-  
-
-  
-  const handleOpenModal = () => {
-    // Si no hay colecciones, no necesitas asignar activeCollectionId aquí
-    if (state.collections.length === 0) {
-      setActiveCollectionId(null); // Esto es opcional, pero puedes dejarlo como null
-    } else {
-      // Asigna automáticamente el ID de la primera colección disponible
-      setActiveCollectionId(state.collections[0].id);
-    }
-    setModalOpen(true);
+  const handleDeleteNote = (noteId: string, collectionId: string) => {
+    dispatch({
+      type: 'DELETE_NOTE',
+      payload: { collectionId, noteId },
+    });
   };
-  
 
   return (
     <NotesProvider>
       <div>
         <AppBar />
 
-        <button onClick={handleOpenModal}>Agregar Nota</button>
+        <button onClick={() => setModalOpen(true)}>Agregar Nota</button>
 
         <div>
           {state.collections.map((collection: NoteCollectionInterface) => (
@@ -80,9 +64,7 @@ const App: React.FC = () => {
               onNoteMove={(noteId, targetCollectionId) => {
                 dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
               }}
-              onDelete={(noteId) => {
-                dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
-              }}
+              onDelete={(noteId) => handleDeleteNote(noteId, collection.id)} // Asegúrate de pasar la colección ID
             />
           ))}
         </div>
@@ -98,6 +80,5 @@ const App: React.FC = () => {
     </NotesProvider>
   );
 };
-
 
 export default App;

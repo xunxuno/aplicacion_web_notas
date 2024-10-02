@@ -1,5 +1,4 @@
-import React, { useState, useContext  } from 'react';
-import { NotesContext } from '../contexts/NotesContext';
+import React, { useState } from 'react';
 import Note from './Note';
 
 interface NoteModalProps {
@@ -11,7 +10,6 @@ interface NoteModalProps {
 const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollectionId }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const { state } = useContext(NotesContext); 
 
   const handleSave = () => {
     if (title.trim() === '' || content.trim() === '') {

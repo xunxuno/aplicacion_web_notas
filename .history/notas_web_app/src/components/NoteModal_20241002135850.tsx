@@ -1,5 +1,4 @@
-import React, { useState, useContext  } from 'react';
-import { NotesContext } from '../contexts/NotesContext';
+import React, { useState } from 'react';
 import Note from './Note';
 
 interface NoteModalProps {
@@ -11,7 +10,6 @@ interface NoteModalProps {
 const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollectionId }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const { state } = useContext(NotesContext); 
 
   const handleSave = () => {
     if (title.trim() === '' || content.trim() === '') {
@@ -27,7 +25,6 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
 
     console.log("Nueva Nota:", newNote);
     onAddNote(newNote);
-    console.log("Estado actualizado de las colecciones: ", state.collections);
     setTitle(''); // Reiniciar el campo de título
     setContent(''); // Reiniciar el campo de contenido
     onClose(); // Cerrar el modal después de guardar

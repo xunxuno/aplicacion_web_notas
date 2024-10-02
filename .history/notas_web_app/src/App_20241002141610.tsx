@@ -26,25 +26,22 @@ const App: React.FC = () => {
   const { state, dispatch } = useContext(NotesContext);
 
   const handleAddNote = (note: Omit<Note, 'id'>) => {
-    // Si no hay una colección activa, asignar la siguiente colección disponible
-    const collectionIdToUse = activeCollectionId || state.nextCollectionId.toString();
-  
-    dispatch({
-      type: 'ADD_NOTE',
-      payload: { collectionId: collectionIdToUse, note },
-    });
-  
-    // Mostrar todas las notas de todas las colecciones
-    state.collections.forEach((collection: NoteCollectionInterface) => {
-      console.log(`Notas en la colección ${collection.id}:`);
-      collection.notes.forEach((n: Note) => {
-        console.log(`Nota ID: ${n.id}, Título: ${n.title}, Contenido: ${n.content}`);
+    if (activeCollectionId) {
+      dispatch({
+        type: 'ADD_NOTE',
+        payload: { collectionId: activeCollectionId, note },
       });
-    });
   
+      // Mostrar todas las notas de todas las colecciones con tipos explícitos
+      state.collections.forEach((collection: NoteCollectionInterface) => {
+        console.log(`Notas en la colección ${collection.id}:`);
+        collection.notes.forEach((n: Note) => {
+          console.log(`Nota ID: ${n.id}, Título: ${n.title}, Contenido: ${n.content}`);
+        });
+      });
+    }
     setModalOpen(false);
   };
-  
   
   
 
