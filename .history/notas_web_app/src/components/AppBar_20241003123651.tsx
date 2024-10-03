@@ -16,9 +16,9 @@ const AppBar: React.FC = () => {
     style={{ 
       textAlign: 'center', 
       transition: 'transform 0.3s ease', 
-      cursor: 'pointer'
+      cursor: 'pointer' // Cambia el cursor al pasar sobre el texto
     }}
-    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(2.2)'}
+    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.2)'}
     onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
   >
     VOX NOTES

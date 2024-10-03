@@ -27,18 +27,17 @@ body {
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   margin-bottom: 20px; /* Espacio debajo del botón */
   font-size: 16px; /* Tamaño de fuente */
-  transition: background-color 0.3s, transform 0.3s; /* Transición para el color de fondo y zoom */
+  transition: background-color 0.3s; /* Transición para el color de fondo */
   /* Ajustes para centrar el botón */
   margin-left: auto; /* Empuja el botón a la derecha */
   margin-right: 60px; /* Margen a la derecha para no pegarse al borde */
 }
 
+
 /* Efecto hover para el botón de agregar nota */
 .add-note-button:hover {
   background-color: #45a049; /* Color de fondo más oscuro al pasar el mouse */
-  transform: scale(1.8); /* Efecto de zoom al pasar el mouse */
 }
-
 
 .collection-container {
   display: grid; /* Usar grid para organizar las notas */
@@ -83,7 +82,7 @@ body {
 }
 
 .note:hover {
-  transform: scale(1.3); /* Efecto de zoom al pasar el mouse */
+  transform: scale(3.05); /* Efecto de zoom al pasar el mouse */
 }
 
 

@@ -36,7 +36,7 @@ body {
 /* Efecto hover para el botón de agregar nota */
 .add-note-button:hover {
   background-color: #45a049; /* Color de fondo más oscuro al pasar el mouse */
-  transform: scale(1.8); /* Efecto de zoom al pasar el mouse */
+  transform: scale(3.05); /* Efecto de zoom al pasar el mouse */
 }
 
 
