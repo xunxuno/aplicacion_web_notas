@@ -4,7 +4,6 @@ interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string;
 }
 
 
@@ -110,35 +109,55 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       };
       case 'MOVE_NOTE': {
         const { noteId, targetCollectionId } = action.payload;
-  
-        // Busca la nota a mover
-        let noteToMove: Note | undefined;
-        const updatedCollections = state.collections.map(collection => {
-          // Encuentra la nota en la colección actual
-          const notes = collection.notes.filter(note => {
-            if (note.id === noteId) {
-              noteToMove = note; // Guarda la nota a mover
-              return false; // Elimina la nota de la colección
-            }
-            return true; // Mantiene otras notas
-          });
-  
-          return { ...collection, notes }; // Devuelve la colección con las notas actualizadas
-        });
-  
-        // Agrega la nota a la colección de destino
-        if (noteToMove) {
-          const targetCollection = updatedCollections.find(collection => collection.id === targetCollectionId);
-          if (targetCollection) {
-            targetCollection.notes.push(noteToMove);
+        
+        // Encuentra la colección de origen y la nota
+        const sourceCollection = state.collections.find(collection => 
+          collection.notes.some(note => note.id === noteId)
+        );
+      
+        if (sourceCollection) {
+          const noteToMove = sourceCollection.notes.find(note => note.id === noteId);
+          
+          // Remueve la nota de la colección de origen
+          const updatedSourceNotes = sourceCollection.notes.filter(note => note.id !== noteId);
+          
+          // Actualiza la colección de origen
+          const updatedSourceCollection = {
+            ...sourceCollection,
+            notes: updatedSourceNotes,
+          };
+          
+          // Encuentra la colección de destino
+          const targetCollection = state.collections.find(collection => collection.id === targetCollectionId);
+          
+          if (targetCollection && noteToMove) {
+            // Agrega la nota a la colección de destino
+            const updatedTargetNotes = [...targetCollection.notes, noteToMove];
+            
+            // Actualiza la colección de destino
+            const updatedTargetCollection = {
+              ...targetCollection,
+              notes: updatedTargetNotes,
+            };
+      
+            // Devuelve el nuevo estado
+            return {
+              ...state,
+              collections: state.collections.map(collection => {
+                if (collection.id === sourceCollection.id) {
+                  return updatedSourceCollection;
+                }
+                if (collection.id === targetCollectionId) {
+                  return updatedTargetCollection;
+                }
+                return collection;
+              }),
+            };
           }
         }
-  
-        return {
-          ...state,
-          collections: updatedCollections,
-        };
+        return state;
       }
+      
       default:
         return state;
   }      

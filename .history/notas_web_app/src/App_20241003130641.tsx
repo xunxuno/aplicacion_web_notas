@@ -35,22 +35,24 @@ const App: React.FC = () => {
     });
   }, [state.collections]);
 
-  const handleAddNote = (note: Omit<Note, 'id'>) => {
-    // Usa el ID de colección disponible en el estado
-    const collectionIdToUse = state.nextCollectionId.toString();
+  const colors = ['#fffbcc', '#EF9C66', '#FCDC94', '#C8CFA0', '#78ABA8'];
 
-    // Crea la nota con el ID de colección y luego incrementa el siguiente ID
+  const handleAddNote = (note: Omit<Note, 'id' | 'color'>) => {
+    // Selecciona un color aleatorio de la lista
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  
+    const collectionIdToUse = state.nextCollectionId.toString();
+  
+    // Crea la nota con el ID de colección, color y luego incrementa el siguiente ID
     dispatch({
       type: 'ADD_NOTE',
-      payload: { collectionId: collectionIdToUse, note },
+      payload: { collectionId: collectionIdToUse, note: { ...note, color: randomColor } },
     });
-
-    // Incrementa el ID de colección para la próxima nota
+  
     dispatch({ type: 'INCREMENT_COLLECTION_ID' });
-
     setModalOpen(false);
   };
-
+  
   const handleOpenModal = () => {
     if (state.collections.length === 0) {
       setActiveCollectionId(null);
@@ -58,10 +60,6 @@ const App: React.FC = () => {
       setActiveCollectionId(state.collections[0].id);
     }
     setModalOpen(true);
-  };
-
-  const handleNoteMove = (noteId: string, targetCollectionId: string) => {
-    dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
   };
 
   return (
@@ -84,7 +82,9 @@ const App: React.FC = () => {
                   console.log("Nota ID:", noteId);
                 }}
                 onCollectionClick={() => setActiveCollectionId(collection.id)}
-                onNoteMove={handleNoteMove}
+                onNoteMove={(noteId, targetCollectionId) => {
+                  dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
+                }}
                 onDelete={(noteId) => {
                   dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
                 }}

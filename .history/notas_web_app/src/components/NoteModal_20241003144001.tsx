@@ -19,10 +19,12 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
       return; // Salir de la función si hay campos vacíos
     }
 
-    const newNote: Omit<NoteInterface, 'id'> = {
+    const newNote: NoteInterface = {
+      id: '', // Puedes dejarlo vacío ya que será generado en el reducer
       title,
       content,
       collectionId: activeCollectionId || '', 
+      colorClass: '', // Aquí puedes asignar un valor por defecto o manejarlo más adelante
     };
 
     console.log("Nueva Nota:", newNote);
@@ -54,5 +56,6 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
     </div>
   );
 };
+
 
 export default NoteModal;

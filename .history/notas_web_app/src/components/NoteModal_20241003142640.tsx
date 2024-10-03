@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { NotesContext } from '../contexts/NotesContext';
-import { NoteInterface } from './NoteCollection'; // Importar la interfaz correcta
+import { NoteInterface } from './NoteCollection'; // Asegúrate de importar la interfaz correcta
 
 interface NoteModalProps {
   onClose: () => void;
@@ -13,6 +13,16 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
   const [content, setContent] = useState('');
   const { state } = useContext(NotesContext); 
 
+  // Generador de color aleatorio
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
   const handleSave = () => {
     if (title.trim() === '' || content.trim() === '') {
       alert("Por favor, completa todos los campos.");
@@ -23,6 +33,7 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
       title,
       content,
       collectionId: activeCollectionId || '', 
+      color: getRandomColor(), // Asigna un color aleatorio
     };
 
     console.log("Nueva Nota:", newNote);

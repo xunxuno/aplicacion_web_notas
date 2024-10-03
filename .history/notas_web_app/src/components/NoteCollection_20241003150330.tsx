@@ -38,6 +38,7 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
 
   return (
     <div ref={drop} className="collection">
+      {/* Mantener el encabezado como identificador, pero ocultarlo */}
       <h3 style={{ display: 'none' }} onClick={onCollectionClick}>
         Colección {collection.id}
       </h3>

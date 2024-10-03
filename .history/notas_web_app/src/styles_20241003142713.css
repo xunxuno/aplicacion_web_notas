@@ -1,0 +1,207 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #000;
+  }
+
+
+/* Estilo para el contenedor principal de la aplicación */
+.app-container {
+  width: 100%; /* Ancho máximo */
+  margin: 0 auto; /* Centrar el contenedor */
+  padding: 20px; /* Espaciado interno */
+  background-color: #f0f0f0; /* Color de fondo claro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Estilo para el botón de agregar nota */
+.add-note-button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  margin-bottom: 20px; /* Espacio debajo del botón */
+  font-size: 16px; /* Tamaño de fuente */
+  transition: background-color 0.3s, transform 0.3s; /* Transición para el color de fondo y zoom */
+  /* Ajustes para centrar el botón */
+  margin-left: auto; /* Empuja el botón a la derecha */
+  margin-right: 60px; /* Margen a la derecha para no pegarse al borde */
+}
+
+/* Efecto hover para el botón de agregar nota */
+.add-note-button:hover {
+  background-color: #45a049; /* Color de fondo más oscuro al pasar el mouse */
+  transform: scale(1.8); /* Efecto de zoom al pasar el mouse */
+}
+
+
+.collection-container {
+  display: grid; /* Usar grid para organizar las notas */
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 20px; /* Espacio entre notas */
+}
+
+/* Estilo para el contenedor de cada colección */
+.collection {
+  padding: 10px;
+  background-color: #f0f0f0;
+  margin-bottom: 20px;
+  border-radius: 5px; /* Bordes redondeados para la colección */
+  display: inline-block; /* Cambiado de block a inline-block para que solo ocupe el ancho necesario */
+  width: auto; /* Permitir que el ancho se ajuste al contenido */
+}
+
+.button-container {
+  display: flex; /* Usar flexbox para alinear los elementos */
+  justify-content: flex-end; /* Alinear los elementos al final (derecha) */
+  margin-bottom: 20px; /* Margen inferior para separar del siguiente elemento */
+  padding: 0 20px; /* Espaciado interno a la izquierda y derecha */
+  /* Esto asegura que el botón no se salga del borde */
+}
+
+
+
+.note {
+  width: 200px; /* Ancho fijo de la nota */
+  height: 150px; /* Alto fijo de la nota */
+  margin-left: 20px;
+  padding: 15px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Color de borde gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  /*background-color: #fffbcc; /* Color de fondo amarillo claro */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  display: flex; /* Flexbox para permitir contenido interno */
+  flex-direction: column; /* Organizar el contenido en columnas */
+  justify-content: space-between; /* Espaciado entre elementos internos */
+  overflow: hidden; /* Ocultar el contenido que se desborda */
+  transition: transform 0.3s ease; /* Efecto de transición para el zoom */
+}
+
+.note:hover {
+  transform: scale(1.3); /* Efecto de zoom al pasar el mouse */
+}
+
+
+
+/* Estilo para el título de la nota */
+.note-title {
+  font-weight: bold; /* Hacer el título más grueso */
+  margin-bottom: 10px; /* Espacio debajo del título */
+  font-size: 18px; /* Tamaño de fuente del título */
+}
+
+/* Estilo para el contenido de la nota */
+.note-content {
+  flex-grow: 1; /* Permitir que el contenido ocupe el espacio disponible */
+  font-size: 14px; /* Tamaño de fuente del contenido */
+  overflow: auto; /* Permitir desplazamiento si hay mucho texto */
+  max-height: 100px; /* Ajusta la altura máxima según sea necesario */
+  overflow-wrap: break-word; /* Permitir que las palabras largas se dividan */
+  word-wrap: break-word; /* Compatibilidad con navegadores más antiguos */
+  white-space: normal; /* Permitir que el texto use varias líneas */
+}
+
+/* Estilo para el botón de eliminar */
+.delete-button {
+  background-color: #ff4d4d; /* Color de fondo rojo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  padding: 5px 10px; /* Espaciado interno */
+  font-size: 14px; /* Tamaño de fuente */
+}
+
+
+/* Estilo para el fondo del modal */
+.modal-background {
+  position: fixed; /* Fijar el fondo para cubrir toda la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Altura completa */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
+  display: flex; /* Usar flexbox para centrar el contenido */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  z-index: 1000; /* Asegurar que el modal esté por encima de otros elementos */
+}
+
+/* Estilo para el contenedor del modal */
+.modal-content {
+  position: fixed; /* Mantiene el modal en una posición fija */
+  top: 50%; /* Centra verticalmente */
+  left: 50%; /* Centra horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta para centrar completamente */
+  background-color: #fff; /* Color de fondo blanco */
+  padding: 20px; /* Espaciado interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Estilo para los inputs del modal */
+.modal-content input,
+.modal-content textarea {
+  width: 100%; /* Ancho completo */
+  padding: 10px; /* Espaciado interno */
+  margin: 10px 0; /* Margen superior e inferior */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+}
+
+/* Estilo para los botones del modal */
+.modal-content button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  padding: 10px 15px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  margin-right: 10px; /* Espacio entre botones */
+  transition: background-color 0.3s, transform 0.3s; /* Transición para el color de fondo y zoom */
+}
+
+/* Efecto hover para los botones del modal */
+.modal-content button:hover {
+  background-color: #45a049; /* Color más oscuro al pasar el mouse */
+  transform: scale(1.2); /* Efecto de zoom al pasar el mouse */
+}
+
+/* Estilo para el botón de cancelar en el modal */
+.modal-content .cancel-button {
+  background-color: #f44336; /* Color de fondo rojo */
+  color: white; /* Color del texto */
+  padding: 10px 15px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  margin-right: 10px; /* Espacio entre botones */
+  transition: background-color 0.3s, transform 0.3s; /* Transición para el color de fondo y zoom */
+}
+
+/* Efecto hover para el botón de cancelar en el modal */
+.modal-content .cancel-button:hover {
+  background-color: #d32f2f; /* Color más oscuro al pasar el mouse */
+  transform: scale(1.2); /* Efecto de zoom al pasar el mouse */
+}
+
+
+@media (max-width: 768px) {
+  .collection-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Para pantallas muy pequeñas, 1 columna */
+@media (max-width: 480px) {
+  .collection-container {
+    grid-template-columns: 1fr;
+  }
+}

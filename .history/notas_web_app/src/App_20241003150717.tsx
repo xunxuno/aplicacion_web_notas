@@ -84,7 +84,9 @@ const App: React.FC = () => {
                   console.log("Nota ID:", noteId);
                 }}
                 onCollectionClick={() => setActiveCollectionId(collection.id)}
-                onNoteMove={handleNoteMove}
+                onNoteMove={(noteId, targetCollectionId) => {
+                  dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
+                }}
                 onDelete={(noteId) => {
                   dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
                 }}

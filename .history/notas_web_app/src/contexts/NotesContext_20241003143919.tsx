@@ -4,7 +4,7 @@ interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string;
+  colorClass: string;
 }
 
 
@@ -110,34 +110,28 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
       };
       case 'MOVE_NOTE': {
         const { noteId, targetCollectionId } = action.payload;
-  
-        // Busca la nota a mover
-        let noteToMove: Note | undefined;
-        const updatedCollections = state.collections.map(collection => {
-          // Encuentra la nota en la colección actual
-          const notes = collection.notes.filter(note => {
-            if (note.id === noteId) {
-              noteToMove = note; // Guarda la nota a mover
-              return false; // Elimina la nota de la colección
-            }
-            return true; // Mantiene otras notas
-          });
-  
-          return { ...collection, notes }; // Devuelve la colección con las notas actualizadas
-        });
-  
-        // Agrega la nota a la colección de destino
-        if (noteToMove) {
-          const targetCollection = updatedCollections.find(collection => collection.id === targetCollectionId);
+      
+        const sourceCollection = state.collections.find((collection) =>
+          collection.notes.find((note) => note.id === noteId)
+        );
+      
+        if (sourceCollection) {
+          // Remover la nota de la colección de origen
+          sourceCollection.notes = sourceCollection.notes.filter((note) => note.id !== noteId);
+      
+          // Agregar la nota a la colección de destino
+          const targetCollection = state.collections.find(
+            (collection) => collection.id === targetCollectionId
+          );
+      
           if (targetCollection) {
-            targetCollection.notes.push(noteToMove);
+            const noteToMove = sourceCollection.notes.find((note) => note.id === noteId);
+            if (noteToMove) {
+              targetCollection.notes.push(noteToMove);
+            }
           }
-        }
-  
-        return {
-          ...state,
-          collections: updatedCollections,
-        };
+        }    
+        return { ...state, collections: [...state.collections] };
       }
       default:
         return state;

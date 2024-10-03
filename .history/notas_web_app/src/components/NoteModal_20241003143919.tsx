@@ -23,6 +23,7 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
       title,
       content,
       collectionId: activeCollectionId || '', 
+      colorClass: '',
     };
 
     console.log("Nueva Nota:", newNote);

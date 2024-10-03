@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState, useContext, useEffect } from 'react';
 import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
@@ -13,6 +12,7 @@ interface Note {
   title: string;
   content: string;
   collectionId: string;
+  colorClass: string; // Cambiar a colorClass
 }
 
 interface NoteCollectionInterface {
@@ -25,6 +25,14 @@ const App: React.FC = () => {
   const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
   const { state, dispatch } = useContext(NotesContext);
 
+  const colorClasses = [
+    'note-red',
+    'note-green',
+    'note-blue',
+    'note-yellow',
+    'note-pink',
+  ];
+
   useEffect(() => {
     console.log("Actualización de colecciones:");
     state.collections.forEach((collection: NoteCollectionInterface) => {
@@ -36,18 +44,19 @@ const App: React.FC = () => {
   }, [state.collections]);
 
   const handleAddNote = (note: Omit<Note, 'id'>) => {
-    // Usa el ID de colección disponible en el estado
     const collectionIdToUse = state.nextCollectionId.toString();
 
-    // Crea la nota con el ID de colección y luego incrementa el siguiente ID
+    const newNote = {
+      ...note,
+      colorClass: colorClasses[Math.floor(Math.random() * colorClasses.length)], // Asignar clase de color aleatoria
+    };
+
     dispatch({
       type: 'ADD_NOTE',
-      payload: { collectionId: collectionIdToUse, note },
+      payload: { collectionId: collectionIdToUse, note: newNote },
     });
 
-    // Incrementa el ID de colección para la próxima nota
     dispatch({ type: 'INCREMENT_COLLECTION_ID' });
-
     setModalOpen(false);
   };
 
@@ -58,10 +67,6 @@ const App: React.FC = () => {
       setActiveCollectionId(state.collections[0].id);
     }
     setModalOpen(true);
-  };
-
-  const handleNoteMove = (noteId: string, targetCollectionId: string) => {
-    dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
   };
 
   return (
@@ -84,7 +89,9 @@ const App: React.FC = () => {
                   console.log("Nota ID:", noteId);
                 }}
                 onCollectionClick={() => setActiveCollectionId(collection.id)}
-                onNoteMove={handleNoteMove}
+                onNoteMove={(noteId, targetCollectionId) => {
+                  dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
+                }}
                 onDelete={(noteId) => {
                   dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
                 }}

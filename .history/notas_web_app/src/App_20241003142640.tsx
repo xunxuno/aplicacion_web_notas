@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState, useContext, useEffect } from 'react';
 import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
@@ -13,6 +12,7 @@ interface Note {
   title: string;
   content: string;
   collectionId: string;
+  color: string; // Añadido color
 }
 
 interface NoteCollectionInterface {
@@ -35,14 +35,22 @@ const App: React.FC = () => {
     });
   }, [state.collections]);
 
+  // Define el arreglo de colores
+  const colors = ['#fffbcc', '#EF9C66', '#FCDC94', '#C8CFA0', '#78ABA8'];
+
   const handleAddNote = (note: Omit<Note, 'id'>) => {
+    // Seleccionar un color aleatorio para la nueva nota
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    
     // Usa el ID de colección disponible en el estado
     const collectionIdToUse = state.nextCollectionId.toString();
 
-    // Crea la nota con el ID de colección y luego incrementa el siguiente ID
+    // Crea la nota con el ID de colección y el color aleatorio
+    const newNote = { ...note, color: randomColor };
+
     dispatch({
       type: 'ADD_NOTE',
-      payload: { collectionId: collectionIdToUse, note },
+      payload: { collectionId: collectionIdToUse, note: newNote },
     });
 
     // Incrementa el ID de colección para la próxima nota
@@ -58,10 +66,6 @@ const App: React.FC = () => {
       setActiveCollectionId(state.collections[0].id);
     }
     setModalOpen(true);
-  };
-
-  const handleNoteMove = (noteId: string, targetCollectionId: string) => {
-    dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
   };
 
   return (
@@ -84,7 +88,9 @@ const App: React.FC = () => {
                   console.log("Nota ID:", noteId);
                 }}
                 onCollectionClick={() => setActiveCollectionId(collection.id)}
-                onNoteMove={handleNoteMove}
+                onNoteMove={(noteId, targetCollectionId) => {
+                  dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
+                }}
                 onDelete={(noteId) => {
                   dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
                 }}
