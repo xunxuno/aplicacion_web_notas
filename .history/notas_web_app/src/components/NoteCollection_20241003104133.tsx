@@ -2,17 +2,11 @@ import React from 'react';
 import Note from './Note';
 import { useDrop } from 'react-dnd';
 
-
-export interface NoteInterface {  
+interface NoteInterface {
   id: string;
   title: string;
   content: string;
-  collectionId: string; 
-}
-
-interface NoteCollectionInterface {
-  id: string;
-  notes: NoteInterface[];  // Cambié a NoteInterface[]
+  collectionId: string;
 }
 
 interface NoteCollectionProps {
@@ -22,6 +16,7 @@ interface NoteCollectionProps {
   onCollectionClick: () => void;
   onDelete: (noteId: string) => void;
 }
+
 
 const NoteCollection: React.FC<NoteCollectionProps> = ({
   collection,
@@ -40,17 +35,11 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
   return (
     <div ref={drop} style={{ padding: '10px', backgroundColor: '#f0f0f0', marginBottom: '20px' }}>
       <h3 onClick={onCollectionClick}>Colección {collection.id}</h3>
-      {collection.notes.map((note: NoteInterface) => (
-        <Note
-          key={note.id}
-          note={{ ...note, collectionId: collection.id }} 
-          onDelete={onDelete}
-          onNoteClick={onNoteClick}
-        />
+      {collection.notes.map((note) => (
+        <Note key={note.id} note={note} onDelete={onDelete} />
       ))}
     </div>
   );
 };
-
 
 export default NoteCollection;

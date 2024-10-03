@@ -23,19 +23,22 @@ const Note: React.FC<NoteProps> = ({ note, onDelete, onNoteClick }) => {
   return (
     <div
       ref={drag} // Referencia para que el drag and drop funcione
-      className="note" // Agregamos la clase para los estilos
       style={{
         opacity: isDragging ? 0.5 : 1, // Cambia la opacidad mientras se arrastra
+        padding: '10px',
+        border: '1px solid #ccc',
+        marginBottom: '10px',
         cursor: 'move', // Cambia el cursor a "move" cuando se puede arrastrar
+        backgroundColor: '#fff',
+        borderRadius: '5px',
       }}
       onClick={() => onNoteClick(note.id)}
     >
-      <div className="note-title">{note.title} (Colección {note.collectionId})</div>
-      <div className="note-content">{note.content}</div>
+      <h4>{note.title} (Colección {note.collectionId})</h4>
+      <p>{note.content}</p>
       <button className="delete-button" onClick={handleDelete}>Eliminar Nota</button>
     </div>
   );
 };
 
 export default Note;
-

@@ -1,0 +1,93 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #000;
+  }
+
+/* styles.css */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.collections-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.note-container {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
+  width: 200px; /* Ancho de la nota */
+  height: 250px; /* Alto de la nota */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative; /* Para el posicionamiento del botón de eliminar */
+}
+
+.note-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.note-content {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Estilo para el botón de agregar nota */
+.add-note-button {
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  margin-bottom: 20px; /* Espacio debajo del botón */
+  font-size: 16px; /* Tamaño de fuente */
+  transition: background-color 0.3s; /* Transición para el color de fondo */
+  /* Ajustes para centrar el botón */
+  margin-left: auto; /* Empuja el botón a la derecha */
+  margin-right: 60px; /* Margen a la derecha para no pegarse al borde */
+}
+
+
+/* Efecto hover para el botón de agregar nota */
+.add-note-button:hover {
+  background-color: #45a049; /* Color de fondo más oscuro al pasar el mouse */
+}
+.button-container {
+  display: flex; /* Usar flexbox para alinear los elementos */
+  justify-content: flex-end; /* Alinear los elementos al final (derecha) */
+  margin-bottom: 20px; /* Margen inferior para separar del siguiente elemento */
+  padding: 0 20px; /* Espaciado interno a la izquierda y derecha */
+  /* Esto asegura que el botón no se salga del borde */
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+
+
+

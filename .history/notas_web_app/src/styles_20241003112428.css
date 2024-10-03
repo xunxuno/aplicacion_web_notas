@@ -1,0 +1,65 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #000;
+  }
+
+/* styles.css */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5; /* Color de fondo claro */
+}
+
+.collections-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%; /* Ancho completo */
+}
+
+.note-collection {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc; /* Color de borde gris */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #fff; /* Color de fondo blanco */
+  width: 300px; /* Ancho fijo para las colecciones */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.note {
+  margin: 10px;
+  padding: 15px; /* Espaciado interno */
+  border: 1px solid #007bff; /* Color de borde azul */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #e9f5ff; /* Color de fondo azul claro */
+  width: 250px; /* Ancho para que se asemeje a una nota en la vida real */
+  height: 150px; /* Altura fija para la nota */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: transform 0.2s; /* Transición suave para el hover */
+}
+
+.note:hover {
+  transform: scale(1.05); /* Aumenta un poco el tamaño al pasar el mouse */
+}
+
+.add-note-button {
+  background-color: #007bff; /* Color de fondo azul */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s; /* Transición suave para el hover */
+}
+
+.add-note-button:hover {
+  background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}

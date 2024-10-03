@@ -2,13 +2,13 @@ import React from 'react';
 import Note from './Note';
 import { useDrop } from 'react-dnd';
 
-
-export interface NoteInterface {  
+interface NoteInterface {
   id: string;
   title: string;
   content: string;
-  collectionId: string; 
+  collectionId: string;  // Agregar collectionId
 }
+
 
 interface NoteCollectionInterface {
   id: string;
@@ -43,7 +43,7 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
       {collection.notes.map((note: NoteInterface) => (
         <Note
           key={note.id}
-          note={{ ...note, collectionId: collection.id }} 
+          note={{ ...note, collectionId: collection.id }}  // Añadir collectionId aquí
           onDelete={onDelete}
           onNoteClick={onNoteClick}
         />

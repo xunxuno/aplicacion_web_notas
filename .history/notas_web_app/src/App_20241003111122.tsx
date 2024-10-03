@@ -5,8 +5,8 @@ import NoteCollection from './components/NoteCollection';
 import NoteModal from './components/NoteModal';
 import './styles.css';
 import AppBar from './components/AppBar';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd'; // Importa DndProvider
+import { HTML5Backend } from 'react-dnd-html5-backend'; // Backend para drag and drop
 
 interface Note {
   id: string;
@@ -36,17 +36,12 @@ const App: React.FC = () => {
   }, [state.collections]);
 
   const handleAddNote = (note: Omit<Note, 'id'>) => {
-    // Usa el ID de colección disponible en el estado
-    const collectionIdToUse = state.nextCollectionId.toString();
+    const collectionIdToUse = activeCollectionId || state.collections[0]?.id;
 
-    // Crea la nota con el ID de colección y luego incrementa el siguiente ID
     dispatch({
       type: 'ADD_NOTE',
       payload: { collectionId: collectionIdToUse, note },
     });
-
-    // Incrementa el ID de colección para la próxima nota
-    dispatch({ type: 'INCREMENT_COLLECTION_ID' });
 
     setModalOpen(false);
   };
@@ -62,7 +57,7 @@ const App: React.FC = () => {
 
   return (
     <NotesProvider>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={HTML5Backend}> {/* Envuelve tu aplicación con DndProvider */}
         <AppBar />
         <div className="app-container">
           <div className="button-container">
@@ -98,7 +93,7 @@ const App: React.FC = () => {
             />
           )}
         </div>
-      </DndProvider>
+      </DndProvider> {/* Cierra DndProvider */}
     </NotesProvider>
   );
 };

@@ -1,12 +1,12 @@
 // src/App.tsx
 import React, { useState, useContext, useEffect } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend'; // Asegúrate de importar el backend que necesites
 import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
 import NoteModal from './components/NoteModal';
 import './styles.css';
 import AppBar from './components/AppBar';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 interface Note {
   id: string;
@@ -36,17 +36,18 @@ const App: React.FC = () => {
   }, [state.collections]);
 
   const handleAddNote = (note: Omit<Note, 'id'>) => {
-    // Usa el ID de colección disponible en el estado
-    const collectionIdToUse = state.nextCollectionId.toString();
+    const collectionIdToUse = activeCollectionId || state.nextCollectionId.toString(); // Usa el ID de la colección activa o el siguiente ID
 
-    // Crea la nota con el ID de colección y luego incrementa el siguiente ID
     dispatch({
       type: 'ADD_NOTE',
-      payload: { collectionId: collectionIdToUse, note },
+      payload: {
+        collectionId: collectionIdToUse,
+        note: {
+          ...note,
+          collectionId: state.nextCollectionId.toString(), // Asigna el ID de colección automáticamente
+        },
+      },
     });
-
-    // Incrementa el ID de colección para la próxima nota
-    dispatch({ type: 'INCREMENT_COLLECTION_ID' });
 
     setModalOpen(false);
   };
@@ -55,22 +56,23 @@ const App: React.FC = () => {
     if (state.collections.length === 0) {
       setActiveCollectionId(null);
     } else {
+      // Asigna automáticamente el ID de la primera colección disponible
       setActiveCollectionId(state.collections[0].id);
     }
     setModalOpen(true);
   };
 
   return (
-    <NotesProvider>
-      <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend}> {/* Asegúrate de envolver tu aplicación con el DndProvider */}
+      <NotesProvider>
         <AppBar />
         <div className="app-container">
-          <div className="button-container">
+          <div className="button-container"> {/* Contenedor para el botón */}
             <button className="add-note-button" onClick={handleOpenModal}>
               Nueva Nota
             </button>
           </div>
-          
+
           <div className="collections-container">
             {state.collections.map((collection: NoteCollectionInterface) => (
               <NoteCollection
@@ -79,7 +81,7 @@ const App: React.FC = () => {
                 onNoteClick={(noteId) => {
                   console.log("Nota ID:", noteId);
                 }}
-                onCollectionClick={() => setActiveCollectionId(collection.id)}
+                onCollectionClick={() => setActiveCollectionId(collection.id)} // Establece correctamente el ID de la colección activa
                 onNoteMove={(noteId, targetCollectionId) => {
                   dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
                 }}
@@ -94,12 +96,12 @@ const App: React.FC = () => {
             <NoteModal
               onClose={() => setModalOpen(false)}
               onAddNote={handleAddNote}
-              activeCollectionId={activeCollectionId!}
+              activeCollectionId={activeCollectionId} // Usa el ID de la colección activa
             />
           )}
         </div>
-      </DndProvider>
-    </NotesProvider>
+      </NotesProvider>
+    </DndProvider>
   );
 };
 
