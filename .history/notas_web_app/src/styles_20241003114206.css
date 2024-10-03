@@ -69,7 +69,6 @@ body {
   display: flex; /* Flexbox para permitir contenido interno */
   flex-direction: column; /* Organizar el contenido en columnas */
   justify-content: space-between; /* Espaciado entre elementos internos */
-  overflow: hidden; /* Ocultar el contenido que se desborda */
 }
 
 /* Estilo para el título de la nota */
@@ -83,11 +82,6 @@ body {
 .note-content {
   flex-grow: 1; /* Permitir que el contenido ocupe el espacio disponible */
   font-size: 14px; /* Tamaño de fuente del contenido */
-  overflow: auto; /* Permitir desplazamiento si hay mucho texto */
-  max-height: 100px; /* Ajusta la altura máxima según sea necesario */
-  overflow-wrap: break-word; /* Permitir que las palabras largas se dividan */
-  word-wrap: break-word; /* Compatibilidad con navegadores más antiguos */
-  white-space: normal; /* Permitir que el texto use varias líneas */
 }
 
 /* Estilo para el botón de eliminar */

@@ -83,11 +83,9 @@ body {
 .note-content {
   flex-grow: 1; /* Permitir que el contenido ocupe el espacio disponible */
   font-size: 14px; /* Tamaño de fuente del contenido */
-  overflow: auto; /* Permitir desplazamiento si hay mucho texto */
-  max-height: 100px; /* Ajusta la altura máxima según sea necesario */
-  overflow-wrap: break-word; /* Permitir que las palabras largas se dividan */
-  word-wrap: break-word; /* Compatibilidad con navegadores más antiguos */
-  white-space: normal; /* Permitir que el texto use varias líneas */
+  overflow: hidden; /* Ocultar el contenido que se desborda */
+  text-overflow: ellipsis; /* Añadir puntos suspensivos si el texto es demasiado largo */
+  white-space: nowrap; /* Mantener el texto en una sola línea */
 }
 
 /* Estilo para el botón de eliminar */

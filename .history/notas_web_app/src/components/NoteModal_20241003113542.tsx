@@ -49,7 +49,7 @@ const NoteModal: React.FC<NoteModalProps> = ({ onClose, onAddNote, activeCollect
           onChange={(e) => setContent(e.target.value)}
         />
         <button onClick={handleSave}>Guardar</button>
-        <button className="cancel-button" onClick={onClose}>Cancelar</button>
+        <button onClick={onClose}>Cancelar</button>
       </div>
     </div>
   );
