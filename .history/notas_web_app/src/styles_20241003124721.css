@@ -171,7 +171,7 @@ body {
 /* Efecto hover para los botones del modal */
 .modal-content button:hover {
   background-color: #45a049; /* Color más oscuro al pasar el mouse */
-  transform: scale(1.2); /* Efecto de zoom al pasar el mouse */
+  transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
 }
 
 /* Estilo para el botón de cancelar en el modal */
