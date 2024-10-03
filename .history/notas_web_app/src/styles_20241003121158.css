@@ -66,9 +66,7 @@ body {
 
 
 .note {
-  width: 200px; /* Ancho fijo de la nota */
-  height: 150px; /* Alto fijo de la nota */
-  margin-left: 20px;
+  margin: 0; /* Eliminamos el margen para evitar el espacio extra */
   padding: 15px; /* Espaciado interno */
   border: 1px solid #ccc; /* Color de borde gris claro */
   border-radius: 5px; /* Bordes redondeados */
@@ -79,7 +77,6 @@ body {
   justify-content: space-between; /* Espaciado entre elementos internos */
   overflow: hidden; /* Ocultar el contenido que se desborda */
 }
-
 
 /* Estilo para el título de la nota */
 .note-title {

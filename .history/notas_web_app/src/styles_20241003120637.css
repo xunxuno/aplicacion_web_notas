@@ -41,8 +41,8 @@ body {
 
 .collection-container {
   display: grid; /* Usar grid para organizar las notas */
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-  gap: 20px; /* Espacio entre notas */
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas en la cuadrícula */
+  gap: 20px; /* Espacio entre las notas */
 }
 
 /* Estilo para el contenedor de cada colección */
@@ -51,8 +51,6 @@ body {
   background-color: #f0f0f0;
   margin-bottom: 20px;
   border-radius: 5px; /* Bordes redondeados para la colección */
-  display: inline-block; /* Cambiado de block a inline-block para que solo ocupe el ancho necesario */
-  width: auto; /* Permitir que el ancho se ajuste al contenido */
 }
 
 .button-container {
@@ -66,20 +64,19 @@ body {
 
 
 .note {
-  width: 200px; /* Ancho fijo de la nota */
-  height: 150px; /* Alto fijo de la nota */
-  margin-left: 20px;
+  margin: 10px; /* Espacio alrededor de cada nota */
   padding: 15px; /* Espaciado interno */
   border: 1px solid #ccc; /* Color de borde gris claro */
   border-radius: 5px; /* Bordes redondeados */
   background-color: #fffbcc; /* Color de fondo amarillo claro */
+  width: 100%; /* Ancho para que se asemeje a una nota en la vida real */
+  height: 150px; /* Altura fija para la nota */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
   display: flex; /* Flexbox para permitir contenido interno */
   flex-direction: column; /* Organizar el contenido en columnas */
   justify-content: space-between; /* Espaciado entre elementos internos */
   overflow: hidden; /* Ocultar el contenido que se desborda */
 }
-
 
 /* Estilo para el título de la nota */
 .note-title {

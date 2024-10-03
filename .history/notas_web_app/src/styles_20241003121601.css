@@ -40,19 +40,18 @@ body {
 }
 
 .collection-container {
-  display: grid; /* Usar grid para organizar las notas */
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-  gap: 20px; /* Espacio entre notas */
+  display: flex; /* Usar flexbox para organizar las colecciones */
+  flex-wrap: wrap; /* Permitir que las colecciones se muevan a la siguiente línea */
+  gap: 20px; /* Espacio entre las colecciones */
 }
 
 /* Estilo para el contenedor de cada colección */
 .collection {
+  flex: 0 1 calc(25% - 20px); /* 4 colecciones por fila */
   padding: 10px;
   background-color: #f0f0f0;
   margin-bottom: 20px;
   border-radius: 5px; /* Bordes redondeados para la colección */
-  display: inline-block; /* Cambiado de block a inline-block para que solo ocupe el ancho necesario */
-  width: auto; /* Permitir que el ancho se ajuste al contenido */
 }
 
 .button-container {
@@ -66,9 +65,7 @@ body {
 
 
 .note {
-  width: 200px; /* Ancho fijo de la nota */
-  height: 150px; /* Alto fijo de la nota */
-  margin-left: 20px;
+  margin: 0; /* Eliminamos el margen para evitar el espacio extra */
   padding: 15px; /* Espaciado interno */
   border: 1px solid #ccc; /* Color de borde gris claro */
   border-radius: 5px; /* Bordes redondeados */
@@ -79,7 +76,6 @@ body {
   justify-content: space-between; /* Espaciado entre elementos internos */
   overflow: hidden; /* Ocultar el contenido que se desborda */
 }
-
 
 /* Estilo para el título de la nota */
 .note-title {

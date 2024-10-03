@@ -42,7 +42,7 @@ body {
 .collection-container {
   display: grid; /* Usar grid para organizar las notas */
   grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-  gap: 20px; /* Espacio entre notas */
+  gap: 40px; /* Espacio entre notas */
 }
 
 /* Estilo para el contenedor de cada colección */
@@ -68,7 +68,7 @@ body {
 .note {
   width: 200px; /* Ancho fijo de la nota */
   height: 150px; /* Alto fijo de la nota */
-  margin-left: 20px;
+  margin: 0; /* Eliminamos el margen para evitar el espacio extra */
   padding: 15px; /* Espaciado interno */
   border: 1px solid #ccc; /* Color de borde gris claro */
   border-radius: 5px; /* Bordes redondeados */

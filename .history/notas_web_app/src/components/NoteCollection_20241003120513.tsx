@@ -11,7 +11,7 @@ export interface NoteInterface {
 
 interface NoteCollectionInterface {
   id: string;
-  notes: NoteInterface[];
+  notes: NoteInterface[];  // Cambié a NoteInterface[]
 }
 
 interface NoteCollectionProps {
@@ -39,7 +39,7 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
   return (
     <div ref={drop} className="collection">
       <h3 onClick={onCollectionClick}>Colección {collection.id}</h3>
-      <div className="collection-notes">
+      <div className="collection-container">
         {collection.notes.map((note: NoteInterface) => (
           <Note
             key={note.id}
@@ -54,4 +54,3 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
 };
 
 export default NoteCollection;
-
