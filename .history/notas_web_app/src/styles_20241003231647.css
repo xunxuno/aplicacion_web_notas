@@ -215,27 +215,17 @@ transform: scale(1.2); /* Efecto de zoom al pasar el mouse */
   transition: all 0.3s ease;
 }
 
-.overlay {
-  position: fixed; /* Para cubrir toda la pantalla */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
-  z-index: 900; /* Asegura que esté detrás del panel pero delante de otros elementos */
-  display: flex; /* Centra el contenido */
-  align-items: center; /* Centrado verticalmente */
-  justify-content: center; /* Centrado horizontalmente */
-}
-
 .collection-notes-panel {
-  position: relative; /* Para el panel en sí */
+  position: fixed; /* Para que el panel esté superpuesto */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra el panel */
   background-color: #f9f9f9; /* Color de fondo */
   border: 1px solid #ccc; /* Borde ligero */
   border-radius: 8px; /* Bordes redondeados */
   padding: 20px; /* Espaciado interno */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
-  z-index: 1000; /* Asegura que el panel esté encima de la superposición */
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
   width: 300px; /* Ancho fijo del panel */
   max-height: 80%; /* Altura máxima */
   overflow-y: auto; /* Habilita el desplazamiento si el contenido es grande */
