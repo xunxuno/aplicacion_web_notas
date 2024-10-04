@@ -12,7 +12,7 @@ interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string;
+  collectionId: string; // Asegúrate de que la propiedad collectionId esté presente
 }
 
 interface NoteCollectionInterface {
@@ -37,16 +37,19 @@ const App: React.FC = () => {
   }, [state.collections]);
 
   const handleAddNote = (note: Omit<Note, 'id'>) => {
+    // Usa el ID de colección disponible en el estado
     const collectionIdToUse = state.nextCollectionId.toString();
 
+    // Crea la nota con el ID de colección y luego incrementa el siguiente ID
     dispatch({
       type: 'ADD_NOTE',
       payload: { 
         collectionId: collectionIdToUse, 
-        note: { ...note, collectionId: collectionIdToUse }
+        note: { ...note, collectionId: collectionIdToUse } // Asegúrate de incluir el collectionId
       },
     });
 
+    // Incrementa el ID de colección para la próxima nota
     dispatch({ type: 'INCREMENT_COLLECTION_ID' });
 
     setModalOpen(false);
@@ -55,10 +58,8 @@ const App: React.FC = () => {
   const handleOpenModal = () => {
     if (state.collections.length === 0) {
       setActiveCollectionId(null);
-      setSelectedNotes([]); // Asegúrate de limpiar las notas seleccionadas si no hay colecciones
     } else {
       setActiveCollectionId(state.collections[0].id);
-      setSelectedNotes(state.collections[0].notes); // Muestra las notas de la primera colección
     }
     setModalOpen(true);
   };
@@ -89,21 +90,24 @@ const App: React.FC = () => {
           </div>
 
           <div className="collections-container">
-            {state.collections.map((collection: NoteCollectionInterface) => (
-              <NoteCollection
-                key={collection.id}
-                collection={collection}
-                onNoteClick={handleNoteClick} // Aquí pasa la función directamente
-                onCollectionClick={() => {
-                  setActiveCollectionId(collection.id);
-                  setSelectedNotes(collection.notes); // Muestra las notas de la colección al hacer clic
-                }}
-                onNoteMove={handleNoteMove}
-                onDelete={(noteId) => {
-                  dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
-                }}
-              />
-            ))}
+          {state.collections.map((collection: NoteCollectionInterface) => (
+            <NoteCollection
+              key={collection.id}
+              collection={collection}
+              onNoteClick={(noteId) => {
+                // Aquí buscamos la nota por ID para obtener su collectionId
+                const note = collection.notes.find(note => note.id === noteId);
+                if (note) {
+                  setActiveCollectionId(note.collectionId); // Establece el ID de colección de la nota clicada
+                }
+              }}
+              onCollectionClick={() => setActiveCollectionId(collection.id)}
+              onNoteMove={handleNoteMove}
+              onDelete={(noteId) => {
+                dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
+              }}
+            />
+          ))}
           </div>
 
           {isModalOpen && (
