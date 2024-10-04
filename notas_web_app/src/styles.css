@@ -39,6 +39,10 @@ background-color: #45a049; /* Color de fondo más oscuro al pasar el mouse */
 transform: scale(1.8); /* Efecto de zoom al pasar el mouse */
 }
 
+.collection-notes {
+  position: relative; /* Necesario para las notas con posición absoluta */
+  height: 200px; /* Ajusta el tamaño según tus necesidades */
+}
 
 .collection-container {
 display: grid; /* Usar grid para organizar las notas */
@@ -80,6 +84,7 @@ flex-direction: column; /* Organizar el contenido en columnas */
 justify-content: space-between; /* Espaciado entre elementos internos */
 overflow: hidden; /* Ocultar el contenido que se desborda */
 transition: transform 0.3s ease; /* Efecto de transición para el zoom */
+z-index: 1;
 }
 
 .note:hover {

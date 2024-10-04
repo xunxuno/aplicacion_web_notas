@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState, useContext, useEffect } from 'react';
 import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';

@@ -16,9 +16,9 @@ interface NoteCollectionInterface {
 
 interface NoteCollectionProps {
   collection: NoteCollectionInterface;
-  onNoteMove: (noteId: string, targetCollectionId: string) => void;
   onNoteClick: (noteId: string) => void;
   onCollectionClick: () => void;
+  onNoteMove: (noteId: string, targetCollectionId: string) => void;
   onDelete: (noteId: string) => void;
 }
 
@@ -36,23 +36,27 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
     },
   });
 
+
   return (
     <div ref={drop} className="collection">
       <h3 style={{ display: 'none' }} onClick={onCollectionClick}>
         Colección {collection.id}
       </h3>
       <div className="collection-notes">
-        {collection.notes.map((note: NoteInterface) => (
-          <Note
+        {collection.notes.map((note) => (
+          <div
             key={note.id}
-            note={{ ...note, collectionId: collection.id }} 
-            onDelete={onDelete}
-            onNoteClick={onNoteClick}
-          />
+          >
+            <Note
+              note={{ ...note, collectionId: collection.id }}
+              onDelete={onDelete}
+              onNoteClick={onNoteClick}
+            />
+          </div>
         ))}
       </div>
     </div>
   );
-};
+}  
 
 export default NoteCollection;
