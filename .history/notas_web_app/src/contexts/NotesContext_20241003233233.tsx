@@ -43,11 +43,16 @@ interface MoveNoteAction {
   };
 }
 
+interface EditNoteAction {
+  type: 'EDIT_NOTE'; // Nueva acción para editar la nota
+  payload: Note; // La nota editada que reemplazará a la original
+}
+
 interface IncrementCollectionIdAction {
   type: 'INCREMENT_COLLECTION_ID'; // Nueva acción para incrementar el ID
 }
 
-type NotesAction = AddNoteAction | DeleteNoteAction | MoveNoteAction | IncrementCollectionIdAction; // Agrega IncrementCollectionIdAction aquí
+type NotesAction = AddNoteAction | DeleteNoteAction | MoveNoteAction | EditNoteAction | IncrementCollectionIdAction; // Agregar EditNoteAction aquí
 
 const initialState: NotesState = {
   collections: [],
@@ -105,6 +110,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
         nextNoteId: newNoteId + 1, // Incrementa el ID de la nota
         nextCollectionId: collectionExists ? state.nextCollectionId : state.nextCollectionId + 1, // Incrementa solo si se crea una nueva colección
       };
+      
     case 'DELETE_NOTE':
       return {
         ...state,
@@ -113,6 +119,7 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
           notes: collection.notes.filter(note => note.id !== action.payload.noteId),
         })),
       };
+
     case 'MOVE_NOTE': {
       const { noteId, targetCollectionId } = action.payload;
 
@@ -141,6 +148,23 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
         collections: updatedCollections,
       };
     }
+
+    case 'EDIT_NOTE': {
+      const updatedNote = action.payload;
+      return {
+        ...state,
+        collections: state.collections.map(collection => ({
+          ...collection,
+          notes: collection.notes.map(note => {
+            if (note.id === updatedNote.id) {
+              return updatedNote; // Reemplaza la nota original con la editada
+            }
+            return note; // Mantiene otras notas
+          }),
+        })),
+      };
+    }
+
     case 'INCREMENT_COLLECTION_ID':
       return {
         ...state,

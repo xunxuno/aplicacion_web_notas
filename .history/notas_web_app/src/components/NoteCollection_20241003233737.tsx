@@ -16,18 +16,20 @@ interface NoteCollectionInterface {
 
 interface NoteCollectionProps {
   collection: NoteCollectionInterface;
-  onNoteClick: (noteId: string) => void; // Cambié el tipo para pasar el ID de la nota
+  onNoteClick: (noteId: string) => void;
   onCollectionClick: () => void;
   onNoteMove: (noteId: string, targetCollectionId: string) => void;
   onDelete: (noteId: string) => void;
+  onEdit: (note: NoteInterface) => void; // Agregar la propiedad onEdit
 }
 
 const NoteCollection: React.FC<NoteCollectionProps> = ({
   collection,
   onNoteMove,
-  onNoteClick, // Esta función ahora recibe el ID de la nota
+  onNoteClick,
   onCollectionClick,
   onDelete,
+  onEdit, // Desestructurar onEdit
 }) => {
   const [, drop] = useDrop({
     accept: 'NOTE',
@@ -57,9 +59,10 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
               }}
             >
               <Note
-                note={note} // Se pasa la nota tal cual
+                note={note}
                 onDelete={onDelete}
                 onNoteClick={() => onNoteClick(note.id)} // Llama a onNoteClick con el ID de la nota
+                onEdit={onEdit} // Pasar onEdit a cada nota
               />
             </div>
           ))}
