@@ -41,9 +41,9 @@ transform: scale(1.8); /* Efecto de zoom al pasar el mouse */
 
 .collection-notes {
   position: relative; /* Necesario para las notas con posición absoluta */
-  height: 200px; /* Ajusta el tamaño según tus necesidades */
+  height: 200px; /* Ajusta la altura según tus necesidades */
+  overflow: hidden; /* Evitar que se muestren las partes que sobresalen del contenedor */
 }
-
 .collection-container {
 display: grid; /* Usar grid para organizar las notas */
 grid-template-columns: repeat(4, 1fr); /* 4 columnas */
