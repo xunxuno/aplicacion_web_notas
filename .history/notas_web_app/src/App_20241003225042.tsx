@@ -12,7 +12,7 @@ interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string; // Asegúrate de que la propiedad collectionId esté presente
+  collectionId: string;
 }
 
 interface NoteCollectionInterface {
@@ -37,29 +37,25 @@ const App: React.FC = () => {
   }, [state.collections]);
 
   const handleAddNote = (note: Omit<Note, 'id'>) => {
-    // Usa el ID de colección disponible en el estado
-    const collectionIdToUse = state.nextCollectionId.toString();
-
-    // Crea la nota con el ID de colección y luego incrementa el siguiente ID
-    dispatch({
-      type: 'ADD_NOTE',
-      payload: { 
-        collectionId: collectionIdToUse, 
-        note: { ...note, collectionId: collectionIdToUse } // Asegúrate de incluir el collectionId
-      },
-    });
-
-    // Incrementa el ID de colección para la próxima nota
-    dispatch({ type: 'INCREMENT_COLLECTION_ID' });
-
-    setModalOpen(false);
+    if (activeCollectionId) {
+      dispatch({
+        type: 'ADD_NOTE',
+        payload: { 
+          collectionId: activeCollectionId, 
+          note: { ...note, collectionId: activeCollectionId } // Asegúrate de asignar el collectionId aquí
+        },
+      });
+      setModalOpen(false);
+    } else {
+      console.error("No hay una colección activa para asignar a la nueva nota.");
+    }
   };
 
   const handleOpenModal = () => {
     if (state.collections.length === 0) {
       setActiveCollectionId(null);
     } else {
-      setActiveCollectionId(state.collections[0].id);
+      setActiveCollectionId(state.collections[0].id); // Selecciona la primera colección como activa
     }
     setModalOpen(true);
   };
@@ -94,7 +90,7 @@ const App: React.FC = () => {
               <NoteCollection
                 key={collection.id}
                 collection={collection}
-                onNoteClick={handleNoteClick}
+                onNoteClick={handleNoteClick} // Pasa la función para manejar el clic en la nota
                 onCollectionClick={() => setActiveCollectionId(collection.id)}
                 onNoteMove={handleNoteMove}
                 onDelete={(noteId) => {

@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
 import NoteModal from './components/NoteModal';
-import CollectionNotesPanel from './components/CollectionNotesPanel';
 import './styles.css';
 import AppBar from './components/AppBar';
 import { DndProvider } from 'react-dnd';
@@ -12,7 +11,7 @@ interface Note {
   id: string;
   title: string;
   content: string;
-  collectionId: string; // Asegúrate de que la propiedad collectionId esté presente
+  collectionId: string;
 }
 
 interface NoteCollectionInterface {
@@ -23,7 +22,6 @@ interface NoteCollectionInterface {
 const App: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
-  const [selectedNotes, setSelectedNotes] = useState<Note[]>([]);
   const { state, dispatch } = useContext(NotesContext);
 
   useEffect(() => {
@@ -43,10 +41,7 @@ const App: React.FC = () => {
     // Crea la nota con el ID de colección y luego incrementa el siguiente ID
     dispatch({
       type: 'ADD_NOTE',
-      payload: { 
-        collectionId: collectionIdToUse, 
-        note: { ...note, collectionId: collectionIdToUse } // Asegúrate de incluir el collectionId
-      },
+      payload: { collectionId: collectionIdToUse, note },
     });
 
     // Incrementa el ID de colección para la próxima nota
@@ -68,16 +63,6 @@ const App: React.FC = () => {
     dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
   };
 
-  const handleNoteClick = (noteId: string) => {
-    const selectedCollection = state.collections.find(
-      (collection) => collection.notes.some(note => note.id === noteId)
-    );
-
-    if (selectedCollection) {
-      setSelectedNotes(selectedCollection.notes);
-    }
-  };
-
   return (
     <NotesProvider>
       <DndProvider backend={HTML5Backend}>
@@ -88,13 +73,15 @@ const App: React.FC = () => {
               Nueva Nota
             </button>
           </div>
-
+          
           <div className="collections-container">
             {state.collections.map((collection: NoteCollectionInterface) => (
               <NoteCollection
                 key={collection.id}
                 collection={collection}
-                onNoteClick={handleNoteClick}
+                onNoteClick={(noteId) => {
+                  console.log("Nota ID:", noteId);
+                }}
                 onCollectionClick={() => setActiveCollectionId(collection.id)}
                 onNoteMove={handleNoteMove}
                 onDelete={(noteId) => {
@@ -109,17 +96,6 @@ const App: React.FC = () => {
               onClose={() => setModalOpen(false)}
               onAddNote={handleAddNote}
               activeCollectionId={activeCollectionId!}
-            />
-          )}
-
-          {selectedNotes.length > 0 && (
-            <CollectionNotesPanel
-              notes={selectedNotes}
-              onClose={() => setSelectedNotes([])} // Limpia las notas seleccionadas al cerrar
-              onDelete={(noteId) => {
-                dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
-                setSelectedNotes(selectedNotes.filter(note => note.id !== noteId)); // Actualiza las notas mostradas
-              }}
             />
           )}
         </div>

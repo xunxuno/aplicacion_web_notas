@@ -16,7 +16,7 @@ interface NoteCollectionInterface {
 
 interface NoteCollectionProps {
   collection: NoteCollectionInterface;
-  onNoteClick: (collectionId: string) => void; // Cambié el tipo para pasar el ID de colección
+  onNoteClick: (noteId: string) => void;
   onCollectionClick: () => void;
   onNoteMove: (noteId: string, targetCollectionId: string) => void;
   onDelete: (noteId: string) => void;
@@ -25,7 +25,7 @@ interface NoteCollectionProps {
 const NoteCollection: React.FC<NoteCollectionProps> = ({
   collection,
   onNoteMove,
-  onNoteClick, // Esta función ahora recibe el ID de la colección
+  onNoteClick,
   onCollectionClick,
   onDelete,
 }) => {
@@ -59,7 +59,7 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
               <Note
                 note={{ ...note, collectionId: collection.id }}
                 onDelete={onDelete}
-                onNoteClick={() => onNoteClick(collection.id)} // Llama a onNoteClick con el ID de colección
+                onNoteClick={onNoteClick}
               />
             </div>
           ))}

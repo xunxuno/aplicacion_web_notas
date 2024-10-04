@@ -2,54 +2,40 @@ import React, { useState, useContext, useEffect } from 'react';
 import { NotesProvider, NotesContext } from './contexts/NotesContext';
 import NoteCollection from './components/NoteCollection';
 import NoteModal from './components/NoteModal';
-import CollectionNotesPanel from './components/CollectionNotesPanel';
 import './styles.css';
 import AppBar from './components/AppBar';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  collectionId: string; // Asegúrate de que la propiedad collectionId esté presente
-}
+import { NoteInterface } from './components/NoteCollection'; // Asegúrate de importar NoteInterface si es necesario
 
 interface NoteCollectionInterface {
   id: string;
-  notes: Note[];
+  notes: NoteInterface[]; // Asegúrate de que este tipo se alinee con tu interfaz
 }
 
 const App: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
-  const [selectedNotes, setSelectedNotes] = useState<Note[]>([]);
   const { state, dispatch } = useContext(NotesContext);
 
   useEffect(() => {
     console.log("Actualización de colecciones:");
     state.collections.forEach((collection: NoteCollectionInterface) => {
       console.log(`Notas en la colección ${collection.id}:`);
-      collection.notes.forEach((n: Note) => {
-        console.log(`Nota ID: ${n.id}, Título: ${n.title}, Contenido: ${n.content}`);
+      collection.notes.forEach((n: NoteInterface) => {
+        console.log(`Nota ID: ${n.id}, Título: ${n.title}, Contenido: ${n.content}, Fecha de creación: ${n.dateCreated}`);
       });
     });
   }, [state.collections]);
 
-  const handleAddNote = (note: Omit<Note, 'id'>) => {
-    // Usa el ID de colección disponible en el estado
+  const handleAddNote = (note: Omit<NoteInterface, 'id'>) => {
     const collectionIdToUse = state.nextCollectionId.toString();
 
-    // Crea la nota con el ID de colección y luego incrementa el siguiente ID
     dispatch({
       type: 'ADD_NOTE',
-      payload: { 
-        collectionId: collectionIdToUse, 
-        note: { ...note, collectionId: collectionIdToUse } // Asegúrate de incluir el collectionId
-      },
+      payload: { collectionId: collectionIdToUse, note },
     });
 
-    // Incrementa el ID de colección para la próxima nota
     dispatch({ type: 'INCREMENT_COLLECTION_ID' });
 
     setModalOpen(false);
@@ -68,16 +54,6 @@ const App: React.FC = () => {
     dispatch({ type: 'MOVE_NOTE', payload: { noteId, targetCollectionId } });
   };
 
-  const handleNoteClick = (noteId: string) => {
-    const selectedCollection = state.collections.find(
-      (collection) => collection.notes.some(note => note.id === noteId)
-    );
-
-    if (selectedCollection) {
-      setSelectedNotes(selectedCollection.notes);
-    }
-  };
-
   return (
     <NotesProvider>
       <DndProvider backend={HTML5Backend}>
@@ -93,8 +69,10 @@ const App: React.FC = () => {
             {state.collections.map((collection: NoteCollectionInterface) => (
               <NoteCollection
                 key={collection.id}
-                collection={collection}
-                onNoteClick={handleNoteClick}
+                collection={collection} // Aquí collection tiene el tipo correcto
+                onNoteClick={(noteId) => {
+                  console.log("Nota ID:", noteId);
+                }}
                 onCollectionClick={() => setActiveCollectionId(collection.id)}
                 onNoteMove={handleNoteMove}
                 onDelete={(noteId) => {
@@ -109,17 +87,6 @@ const App: React.FC = () => {
               onClose={() => setModalOpen(false)}
               onAddNote={handleAddNote}
               activeCollectionId={activeCollectionId!}
-            />
-          )}
-
-          {selectedNotes.length > 0 && (
-            <CollectionNotesPanel
-              notes={selectedNotes}
-              onClose={() => setSelectedNotes([])} // Limpia las notas seleccionadas al cerrar
-              onDelete={(noteId) => {
-                dispatch({ type: 'DELETE_NOTE', payload: { noteId } });
-                setSelectedNotes(selectedNotes.filter(note => note.id !== noteId)); // Actualiza las notas mostradas
-              }}
             />
           )}
         </div>

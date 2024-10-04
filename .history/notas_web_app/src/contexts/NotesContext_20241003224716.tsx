@@ -43,11 +43,7 @@ interface MoveNoteAction {
   };
 }
 
-interface IncrementCollectionIdAction {
-  type: 'INCREMENT_COLLECTION_ID'; // Nueva acción para incrementar el ID
-}
-
-type NotesAction = AddNoteAction | DeleteNoteAction | MoveNoteAction | IncrementCollectionIdAction; // Agrega IncrementCollectionIdAction aquí
+type NotesAction = AddNoteAction | DeleteNoteAction | MoveNoteAction;
 
 const initialState: NotesState = {
   collections: [],
@@ -141,12 +137,6 @@ const notesReducer = (state: NotesState, action: NotesAction): NotesState => {
         collections: updatedCollections,
       };
     }
-    case 'INCREMENT_COLLECTION_ID':
-      return {
-        ...state,
-        nextCollectionId: state.nextCollectionId + 1, // Incrementa el ID de colección
-      };
-
     default:
       return state;
   }
