@@ -36,6 +36,7 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
     },
   });
 
+  const noteSpacing = 10; // Espaciado entre las notas en píxeles
 
   return (
     <div ref={drop} className="collection">
@@ -43,20 +44,28 @@ const NoteCollection: React.FC<NoteCollectionProps> = ({
         Colección {collection.id}
       </h3>
       <div className="collection-notes">
-        {collection.notes.map((note) => (
-          <div
-            key={note.id}
-          >
-            <Note
-              note={{ ...note, collectionId: collection.id }}
-              onDelete={onDelete}
-              onNoteClick={onNoteClick}
-            />
-          </div>
-        ))}
+        {collection.notes
+          .slice() // Crea una copia del array para no mutar el original
+          .reverse() // Invierte el orden para que la última nota agregada esté arriba
+          .map((note, index) => (
+            <div
+              key={note.id}
+              style={{
+                position: 'relative',
+                top: `${index * noteSpacing}px`, // Desplaza las notas hacia abajo
+                zIndex: collection.notes.length - index, // Asegura que las notas más recientes estén arriba
+              }}
+            >
+              <Note
+                note={{ ...note, collectionId: collection.id }}
+                onDelete={onDelete}
+                onNoteClick={onNoteClick}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );
-}  
+};
 
 export default NoteCollection;
